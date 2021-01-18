@@ -1,7 +1,5 @@
 <template>
-    <div
-        v-observe-visibility="handleScrolledToBottom"
-    ></div>
+    <div v-observe-visibility="handleScrolledToBottom"></div>
 </template>
 
 <script>

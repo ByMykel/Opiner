@@ -1904,6 +1904,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     follow: function follow(user) {
       _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__.Inertia.post(route("user.follow", user), [], {
+        preserveState: false,
         preserveScroll: true,
         resetOnSuccess: false
       });
@@ -2177,8 +2178,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   methods: {
     handleScrolledToBottom: function handleScrolledToBottom(isVisible, entry) {
@@ -2385,6 +2384,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     like: function like(opinion) {
       _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__.Inertia.post(route("opinion.like", opinion.id), [], {
+        preserveState: false,
         preserveScroll: true,
         resetOnSuccess: false
       });
@@ -2464,6 +2464,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__.Inertia.post(route("opinion.store"), this.form, {
+        preserveState: false,
         preserveScroll: true,
         resetOnSuccess: false
       });
@@ -4773,16 +4774,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     OpinionCreate: _Components_OpinionCreate__WEBPACK_IMPORTED_MODULE_2__.default,
     InfiniteScroll: _Components_InfiniteScroll__WEBPACK_IMPORTED_MODULE_3__.default
   },
-  mounted: function mounted() {
-    this.scroll();
-  },
   methods: {
-    like: function like(opinion) {
-      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_4__.Inertia.post(route("opinion.like", opinion.id), [], {
-        preserveScroll: true,
-        resetOnSuccess: false
-      });
-    },
     scroll: function scroll() {
       var _this = this;
 
@@ -4835,6 +4827,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
 //
 //
 //
@@ -29986,7 +29981,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "border border-gray-500 rounded-md p-2 m-2" },
+        { staticClass: "border border-gray-500 rounded-md p-2 m-2 break-all" },
         [
           _c(
             "inertia-link",
@@ -34121,6 +34116,12 @@ var render = function() {
         ])
       }),
       _vm._v(" "),
+      _vm.allNotifications.data.length == 0
+        ? _c("div", { staticClass: "text-center pt-10" }, [
+            _vm._v("\n        No notifications yet\n    ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _vm.allNotifications.data.length
         ? _c("InfiniteScroll", {
             on: {
@@ -35446,7 +35447,12 @@ var render = function() {
                     _c(
                       "span",
                       { staticClass: "font-medium text-sm text-gray-700" },
-                      [_vm._v(_vm._s(_vm.form.name.length) + " / 30")]
+                      [
+                        _vm._v(
+                          _vm._s(_vm.form.name ? _vm.form.name.length : 0) +
+                            " / 30"
+                        )
+                      ]
                     )
                   ],
                   1
@@ -35492,7 +35498,12 @@ var render = function() {
                     _c(
                       "span",
                       { staticClass: "font-medium text-sm text-gray-700" },
-                      [_vm._v(_vm._s(_vm.form.email.length) + " / 255")]
+                      [
+                        _vm._v(
+                          _vm._s(_vm.form.email ? _vm.form.email.length : 0) +
+                            " / 255"
+                        )
+                      ]
                     )
                   ],
                   1
@@ -35531,7 +35542,12 @@ var render = function() {
                     _c(
                       "span",
                       { staticClass: "font-medium text-sm text-gray-700" },
-                      [_vm._v(_vm._s(_vm.form.bio.length) + " / 160")]
+                      [
+                        _vm._v(
+                          _vm._s(_vm.form.bio ? _vm.form.bio.length : 0) +
+                            " / 160"
+                        )
+                      ]
                     )
                   ],
                   1
@@ -35583,7 +35599,13 @@ var render = function() {
                     _c(
                       "span",
                       { staticClass: "font-medium text-sm text-gray-700" },
-                      [_vm._v(_vm._s(_vm.form.location.length) + " / 30")]
+                      [
+                        _vm._v(
+                          _vm._s(
+                            _vm.form.location ? _vm.form.location.length : 0
+                          ) + " / 30"
+                        )
+                      ]
                     )
                   ],
                   1
@@ -35624,7 +35646,13 @@ var render = function() {
                     _c(
                       "span",
                       { staticClass: "font-medium text-sm text-gray-700" },
-                      [_vm._v(_vm._s(_vm.form.website.length) + " / 100")]
+                      [
+                        _vm._v(
+                          _vm._s(
+                            _vm.form.website ? _vm.form.website.length : 0
+                          ) + " / 100"
+                        )
+                      ]
                     )
                   ],
                   1

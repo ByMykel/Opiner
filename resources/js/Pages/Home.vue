@@ -37,16 +37,7 @@ export default {
         OpinionCreate,
         InfiniteScroll,
     },
-    mounted() {
-        this.scroll();
-    },
     methods: {
-        like(opinion) {
-            Inertia.post(route("opinion.like", opinion.id), [], {
-                preserveScroll: true,
-                resetOnSuccess: false,
-            });
-        },
         scroll() {
             if (!this.opinions.next_page_url) {
                 return;

@@ -15,6 +15,9 @@
                 ></LikeNotification>
             </div>
         </div>
+        <div class="text-center pt-10" v-if="allNotifications.data.length == 0">
+            No notifications yet
+        </div>
         <InfiniteScroll v-if="allNotifications.data.length" @scroll="scroll()" />
     </app-layout>
 </template>

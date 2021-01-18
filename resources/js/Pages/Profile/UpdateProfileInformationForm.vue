@@ -45,7 +45,7 @@
             <div class="col-span-6 sm:col-span-4">
                 <div class="flex justify-between">
                     <jet-label for="name" value="Name" />
-                    <span class="font-medium text-sm text-gray-700">{{ form.name.length }} / 30</span>
+                    <span class="font-medium text-sm text-gray-700">{{ form.name ? form.name.length : 0 }} / 30</span>
                 </div>
                 <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" autocomplete="name" maxlength="30" />
                 <jet-input-error :message="form.errors.name" class="mt-2" />
@@ -55,7 +55,7 @@
             <div class="col-span-6 sm:col-span-4">
                 <div class="flex justify-between">
                     <jet-label for="email" value="Email" />
-                    <span class="font-medium text-sm text-gray-700">{{ form.email.length }} / 255</span>
+                    <span class="font-medium text-sm text-gray-700">{{ form.email ? form.email.length : 0 }} / 255</span>
                 </div>
                 <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" maxlength="255" />
                 <jet-input-error :message="form.errors.email" class="mt-2" />
@@ -65,7 +65,7 @@
             <div class="col-span-6 sm:col-span-4">
                 <div class="flex justify-between">
                     <jet-label for="bio" value="Bio" />
-                    <span class="font-medium text-sm text-gray-700">{{ form.bio.length }} / 160</span>
+                    <span class="font-medium text-sm text-gray-700">{{ form.bio ? form.bio.length : 0 }} / 160</span>
                 </div>
                 <textarea class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm resize-none w-full"
                     id="bio"
@@ -80,7 +80,7 @@
             <div class="col-span-6 sm:col-span-4">
                 <div class="flex justify-between">
                     <jet-label for="location" value="Location" />
-                    <span class="font-medium text-sm text-gray-700">{{ form.location.length }} / 30</span>
+                    <span class="font-medium text-sm text-gray-700">{{ form.location ? form.location.length : 0 }} / 30</span>
                 </div>
                 <jet-input id="location" type="text" class="mt-1 block w-full" v-model="form.location" maxlength="30" />
                 <jet-input-error :message="form.errors.location" class="mt-2" />
@@ -90,7 +90,7 @@
             <div class="col-span-6 sm:col-span-4">
                 <div class="flex justify-between">
                     <jet-label for="website" value="Website" />
-                    <span class="font-medium text-sm text-gray-700">{{ form.website.length }} / 100</span>
+                    <span class="font-medium text-sm text-gray-700">{{ form.website ? form.website.length : 0 }} / 100</span>
                 </div>
                 <jet-input id="website" type="text" class="mt-1 block w-full" v-model="form.website" maxlength="100" />
                 <jet-input-error :message="form.errors.website" class="mt-2" />

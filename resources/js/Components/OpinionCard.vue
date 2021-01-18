@@ -127,6 +127,7 @@ export default {
     methods: {
         like(opinion) {
             Inertia.post(route("opinion.like", opinion.id), [], {
+                preserveState: false,
                 preserveScroll: true,
                 resetOnSuccess: false,
             });

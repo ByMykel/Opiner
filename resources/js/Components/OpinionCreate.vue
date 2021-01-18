@@ -59,6 +59,7 @@ export default {
             }
 
             Inertia.post(route("opinion.store"), this.form, {
+                preserveState: false,
                 preserveScroll: true,
                 resetOnSuccess: false,
             });
