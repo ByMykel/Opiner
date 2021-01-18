@@ -45,10 +45,9 @@
             </div>
         </div>
         <div v-else class="w-full text-center text-md">
-            <div v-if="$page.url.replace('/explore/', '')">
+            <div v-if="$page.url !== '/explore' && $page.url !== '/explore/'">
                 No results for "{{ $page.url.replace("/explore/", "") }}"
             </div>
-            <div v-else>No results</div>
         </div>
         <InfiniteScroll v-if="allUsers.data.length" @scroll="scroll()" />
     </app-layout>
