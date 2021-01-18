@@ -13,7 +13,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->search) {
-            $users = User::where('username', 'LIKE', '%' . $request->search . '%')->get();
+            $users = User::where('username', 'LIKE', '%' . $request->search . '%')->paginate();
         } else {
             $users = User::inRandomOrder()
                 ->whereNotIn('id', Auth::user()->following()->get()->pluck('id'))
@@ -22,7 +22,11 @@ class UserController extends Controller
                 ->withcount(['followers as follow' => function ($q) {
                     return $q->where('follower_id', Auth::id());
                 }])
-                ->get();
+                ->paginate();
+        }
+
+        if ($request->wantsJson()) {
+            return $users;
         }
 
         return Inertia::render('Explore', [
@@ -43,8 +47,23 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function show(User $user)
+    public function show(User $user, Request $request)
     {
+        $opinions = $user->opinions()
+            ->with('user')
+            ->with('parent.user')
+            ->withCount('likes')
+            ->withcount(['likes as like' => function ($q) {
+                return $q->where('user_id', Auth::id());
+            }])
+            ->withCount('replies')
+            ->latest()
+            ->paginate();
+
+        if ($request->wantsJson()) {
+            return $opinions;
+        }
+
         return Inertia::render('User/User', [
             'user' => User::where('id', $user->id)
                 ->withcount('following')
@@ -54,41 +73,44 @@ class UserController extends Controller
                 ->withcount('followers')
                 ->withcount('opinions')
                 ->get(),
-            'opinions' => $user->opinions()
-                ->with('user')
-                ->with('parent.user')
-                ->withCount('likes')
-                ->withcount(['likes as like' => function ($q) {
-                    return $q->where('user_id', Auth::id());
-                }])
-                ->withCount('replies')
-                ->latest()
-                ->get(),
+            'opinions' => $opinions,
             'profile' => $user->id === Auth::user()->id
         ]);
     }
 
-    public function following(User $user)
+    public function following(User $user, Request $request)
     {
+        $following = $user->following()
+            ->withcount(['followers as follow' => function ($q) {
+                return $q->where('follower_id', Auth::id());
+            }])
+            ->paginate();
+
+        if ($request->wantsJson()) {
+            return $following;
+        }
+
         return Inertia::render('User/Following', [
             'user' => $user,
-            'following' => $user->following()
-                ->withcount(['followers as follow' => function ($q) {
-                    return $q->where('follower_id', Auth::id());
-                }])
-                ->get(),
+            'following' => $following
         ]);
     }
 
-    public function followers(User $user)
+    public function followers(User $user, Request $request)
     {
+        $followers = $user->followers()
+            ->withcount(['followers as follow' => function ($q) {
+                return $q->where('follower_id', Auth::id());
+            }])
+            ->paginate();
+
+        if ($request->wantsJson()) {
+            return $followers;
+        }
+            
         return Inertia::render('User/Followers', [
             'user' => $user,
-            'followers' => $user->followers()
-                ->withcount(['followers as follow' => function ($q) {
-                    return $q->where('follower_id', Auth::id());
-                }])
-                ->get(),
+            'followers' => $followers
         ]);
     }
 }

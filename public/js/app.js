@@ -2162,6 +2162,37 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/InfiniteScroll.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/InfiniteScroll.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  methods: {
+    handleScrolledToBottom: function handleScrolledToBottom(isVisible, entry) {
+      if (!isVisible) {
+        return;
+      }
+
+      this.$emit("scroll");
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/LikeNotification.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/LikeNotification.vue?vue&type=script&lang=js& ***!
@@ -4544,7 +4575,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _Components_Icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/Icons */ "./resources/js/Components/Icons.vue");
-/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var _Components_InfiniteScroll__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/InfiniteScroll */ "./resources/js/Components/InfiniteScroll.vue");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -4600,6 +4650,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -4609,12 +4661,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
-    Icons: _Components_Icons__WEBPACK_IMPORTED_MODULE_1__.default
+    Icons: _Components_Icons__WEBPACK_IMPORTED_MODULE_1__.default,
+    InfiniteScroll: _Components_InfiniteScroll__WEBPACK_IMPORTED_MODULE_2__.default
   },
   data: function data() {
     return {
-      searchText: ""
+      searchText: "",
+      allUsers: this.users
     };
+  },
+  mounted: function mounted() {
+    // Don't paginate in /explore
+    if (this.$page.url === "/explore") {
+      this.allUsers.next_page_url = null;
+    }
   },
   methods: {
     search: function search() {
@@ -4622,7 +4682,20 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.visit(route("explore", this.searchText));
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__.Inertia.visit(route("explore", this.searchText));
+    },
+    scroll: function scroll() {
+      var _this = this;
+
+      if (this.allUsers.next_page_url === null) {
+        return;
+      }
+
+      axios.get(this.allUsers.next_page_url).then(function (response) {
+        _this.allUsers = _objectSpread(_objectSpread({}, response.data), {}, {
+          data: [].concat(_toConsumableArray(_this.allUsers.data), _toConsumableArray(response.data.data))
+        });
+      });
     }
   }
 });
@@ -4643,7 +4716,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _Components_OpinionCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/OpinionCard */ "./resources/js/Components/OpinionCard.vue");
 /* harmony import */ var _Components_OpinionCreate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/OpinionCreate */ "./resources/js/Components/OpinionCreate.vue");
-/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var _Components_InfiniteScroll__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/InfiniteScroll */ "./resources/js/Components/InfiniteScroll.vue");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -4660,6 +4752,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -4668,16 +4762,38 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     timeline: null
   },
+  data: function data() {
+    return {
+      opinions: this.timeline
+    };
+  },
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
     OpinionCard: _Components_OpinionCard__WEBPACK_IMPORTED_MODULE_1__.default,
-    OpinionCreate: _Components_OpinionCreate__WEBPACK_IMPORTED_MODULE_2__.default
+    OpinionCreate: _Components_OpinionCreate__WEBPACK_IMPORTED_MODULE_2__.default,
+    InfiniteScroll: _Components_InfiniteScroll__WEBPACK_IMPORTED_MODULE_3__.default
+  },
+  mounted: function mounted() {
+    this.scroll();
   },
   methods: {
     like: function like(opinion) {
-      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__.Inertia.post(route("opinion.like", opinion.id), [], {
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_4__.Inertia.post(route("opinion.like", opinion.id), [], {
         preserveScroll: true,
         resetOnSuccess: false
+      });
+    },
+    scroll: function scroll() {
+      var _this = this;
+
+      if (!this.opinions.next_page_url) {
+        return;
+      }
+
+      axios.get(this.opinions.next_page_url).then(function (response) {
+        _this.opinions = _objectSpread(_objectSpread({}, response.data), {}, {
+          data: [].concat(_toConsumableArray(_this.opinions.data), _toConsumableArray(response.data.data))
+        });
       });
     }
   }
@@ -4700,6 +4816,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_OpinionCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/OpinionCard */ "./resources/js/Components/OpinionCard.vue");
 /* harmony import */ var _Components_FollowNotification__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/FollowNotification */ "./resources/js/Components/FollowNotification.vue");
 /* harmony import */ var _Components_LikeNotification__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/LikeNotification */ "./resources/js/Components/LikeNotification.vue");
+/* harmony import */ var _Components_InfiniteScroll__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Components/InfiniteScroll */ "./resources/js/Components/InfiniteScroll.vue");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -4721,7 +4856,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 
 
 
@@ -4730,11 +4865,17 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     notifications: null
   },
+  data: function data() {
+    return {
+      allNotifications: this.notifications
+    };
+  },
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
     OpinionCard: _Components_OpinionCard__WEBPACK_IMPORTED_MODULE_1__.default,
     FollowNotification: _Components_FollowNotification__WEBPACK_IMPORTED_MODULE_2__.default,
-    LikeNotification: _Components_LikeNotification__WEBPACK_IMPORTED_MODULE_3__.default
+    LikeNotification: _Components_LikeNotification__WEBPACK_IMPORTED_MODULE_3__.default,
+    InfiniteScroll: _Components_InfiniteScroll__WEBPACK_IMPORTED_MODULE_4__.default
   },
   methods: {
     followNotification: function followNotification(type) {
@@ -4742,6 +4883,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     likeNotification: function likeNotification(type) {
       return type === "App\\Notifications\\LikeNotification";
+    },
+    scroll: function scroll() {
+      var _this = this;
+
+      if (this.allNotifications.next_page_url === null) {
+        return;
+      }
+
+      axios.get(this.allNotifications.next_page_url).then(function (response) {
+        _this.allNotifications = _objectSpread(_objectSpread({}, response.data), {}, {
+          data: [].concat(_toConsumableArray(_this.allNotifications.data), _toConsumableArray(response.data.data))
+        });
+      });
     }
   }
 });
@@ -4763,7 +4917,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_OpinionCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/OpinionCard */ "./resources/js/Components/OpinionCard.vue");
 /* harmony import */ var _Components_OpinionCreate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/OpinionCreate */ "./resources/js/Components/OpinionCreate.vue");
 /* harmony import */ var _Components_Icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/Icons */ "./resources/js/Components/Icons.vue");
-/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var _Components_InfiniteScroll__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Components/InfiniteScroll */ "./resources/js/Components/InfiniteScroll.vue");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -4797,6 +4970,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -4808,11 +4983,32 @@ __webpack_require__.r(__webpack_exports__);
     opinion: null,
     replies: null
   },
+  data: function data() {
+    return {
+      allReplies: this.replies
+    };
+  },
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
     OpinionCard: _Components_OpinionCard__WEBPACK_IMPORTED_MODULE_1__.default,
     OpinionCreate: _Components_OpinionCreate__WEBPACK_IMPORTED_MODULE_2__.default,
-    Icons: _Components_Icons__WEBPACK_IMPORTED_MODULE_3__.default
+    Icons: _Components_Icons__WEBPACK_IMPORTED_MODULE_3__.default,
+    InfiniteScroll: _Components_InfiniteScroll__WEBPACK_IMPORTED_MODULE_4__.default
+  },
+  methods: {
+    scroll: function scroll() {
+      var _this = this;
+
+      if (this.allReplies.next_page_url === null) {
+        return;
+      }
+
+      axios.get(this.allReplies.next_page_url).then(function (response) {
+        _this.allReplies = _objectSpread(_objectSpread({}, response.data), {}, {
+          data: [].concat(_toConsumableArray(_this.allReplies.data), _toConsumableArray(response.data.data))
+        });
+      });
+    }
   }
 });
 
@@ -5770,7 +5966,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
 /* harmony import */ var _Components_FollowButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Components/FollowButton */ "./resources/js/Components/FollowButton.vue");
-/* harmony import */ var _Components_Icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/Icons */ "./resources/js/Components/Icons.vue");
+/* harmony import */ var _Components_InfiniteScroll__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/InfiniteScroll */ "./resources/js/Components/InfiniteScroll.vue");
+/* harmony import */ var _Components_Icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Components/Icons */ "./resources/js/Components/Icons.vue");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -5816,6 +6031,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -5825,10 +6042,31 @@ __webpack_require__.r(__webpack_exports__);
     user: null,
     followers: null
   },
+  data: function data() {
+    return {
+      allFollowers: this.followers
+    };
+  },
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
     FollowButton: _Components_FollowButton__WEBPACK_IMPORTED_MODULE_2__.default,
-    Icons: _Components_Icons__WEBPACK_IMPORTED_MODULE_3__.default
+    Icons: _Components_Icons__WEBPACK_IMPORTED_MODULE_4__.default,
+    InfiniteScroll: _Components_InfiniteScroll__WEBPACK_IMPORTED_MODULE_3__.default
+  },
+  methods: {
+    scroll: function scroll() {
+      var _this = this;
+
+      if (this.allFollowers.next_page_url === null) {
+        return;
+      }
+
+      axios.get(this.allFollowers.next_page_url).then(function (response) {
+        _this.allFollowers = _objectSpread(_objectSpread({}, response.data), {}, {
+          data: [].concat(_toConsumableArray(_this.allFollowers.data), _toConsumableArray(response.data.data))
+        });
+      });
+    }
   }
 });
 
@@ -5848,7 +6086,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
 /* harmony import */ var _Components_FollowButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Components/FollowButton */ "./resources/js/Components/FollowButton.vue");
-/* harmony import */ var _Components_Icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/Icons */ "./resources/js/Components/Icons.vue");
+/* harmony import */ var _Components_InfiniteScroll__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/InfiniteScroll */ "./resources/js/Components/InfiniteScroll.vue");
+/* harmony import */ var _Components_Icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Components/Icons */ "./resources/js/Components/Icons.vue");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -5894,6 +6151,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -5903,10 +6162,31 @@ __webpack_require__.r(__webpack_exports__);
     user: null,
     following: null
   },
+  data: function data() {
+    return {
+      allFollowing: this.following
+    };
+  },
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
     FollowButton: _Components_FollowButton__WEBPACK_IMPORTED_MODULE_2__.default,
-    Icons: _Components_Icons__WEBPACK_IMPORTED_MODULE_3__.default
+    Icons: _Components_Icons__WEBPACK_IMPORTED_MODULE_4__.default,
+    InfiniteScroll: _Components_InfiniteScroll__WEBPACK_IMPORTED_MODULE_3__.default
+  },
+  methods: {
+    scroll: function scroll() {
+      var _this = this;
+
+      if (this.allFollowing.next_page_url === null) {
+        return;
+      }
+
+      axios.get(this.allFollowing.next_page_url).then(function (response) {
+        _this.allFollowing = _objectSpread(_objectSpread({}, response.data), {}, {
+          data: [].concat(_toConsumableArray(_this.allFollowing.data), _toConsumableArray(response.data.data))
+        });
+      });
+    }
   }
 });
 
@@ -5927,7 +6207,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_OpinionCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/OpinionCard */ "./resources/js/Components/OpinionCard.vue");
 /* harmony import */ var _Components_Icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/Icons */ "./resources/js/Components/Icons.vue");
 /* harmony import */ var _Components_FollowButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/FollowButton */ "./resources/js/Components/FollowButton.vue");
-/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var _Components_InfiniteScroll__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Components/InfiniteScroll */ "./resources/js/Components/InfiniteScroll.vue");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -6011,6 +6310,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -6026,14 +6327,31 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      hover_follor: this.hoverFollow
+      hover_follor: this.hoverFollow,
+      allOpinions: this.opinions
     };
   },
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
     OpinionCard: _Components_OpinionCard__WEBPACK_IMPORTED_MODULE_1__.default,
     Icons: _Components_Icons__WEBPACK_IMPORTED_MODULE_2__.default,
-    FollowButton: _Components_FollowButton__WEBPACK_IMPORTED_MODULE_3__.default
+    FollowButton: _Components_FollowButton__WEBPACK_IMPORTED_MODULE_3__.default,
+    InfiniteScroll: _Components_InfiniteScroll__WEBPACK_IMPORTED_MODULE_4__.default
+  },
+  methods: {
+    scroll: function scroll() {
+      var _this = this;
+
+      if (this.allOpinions.next_page_url === null) {
+        return;
+      }
+
+      axios.get(this.allOpinions.next_page_url).then(function (response) {
+        _this.allOpinions = _objectSpread(_objectSpread({}, response.data), {}, {
+          data: [].concat(_toConsumableArray(_this.allOpinions.data), _toConsumableArray(response.data.data))
+        });
+      });
+    }
   }
 });
 
@@ -6047,24 +6365,27 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
 /* harmony import */ var portal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! portal-vue */ "./node_modules/portal-vue/dist/portal-vue.common.js");
+/* harmony import */ var vue_observe_visibility__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-observe-visibility */ "./node_modules/vue-observe-visibility/dist/vue-observe-visibility.esm.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // Import modules...
 
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_2__.default.mixin({
+
+vue__WEBPACK_IMPORTED_MODULE_3__.default.mixin({
   methods: {
     route: route
   }
 });
-vue__WEBPACK_IMPORTED_MODULE_2__.default.use(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.plugin);
-vue__WEBPACK_IMPORTED_MODULE_2__.default.use(portal_vue__WEBPACK_IMPORTED_MODULE_1__.default);
+vue__WEBPACK_IMPORTED_MODULE_3__.default.use(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.plugin);
+vue__WEBPACK_IMPORTED_MODULE_3__.default.use(portal_vue__WEBPACK_IMPORTED_MODULE_1__.default);
+vue__WEBPACK_IMPORTED_MODULE_3__.default.use(vue_observe_visibility__WEBPACK_IMPORTED_MODULE_2__.default);
 var app = document.getElementById('app');
-new vue__WEBPACK_IMPORTED_MODULE_2__.default({
+new vue__WEBPACK_IMPORTED_MODULE_3__.default({
   render: function render(h) {
     return h(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.App, {
       props: {
@@ -25237,6 +25558,45 @@ component.options.__file = "resources/js/Components/Icons.vue"
 
 /***/ }),
 
+/***/ "./resources/js/Components/InfiniteScroll.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/Components/InfiniteScroll.vue ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _InfiniteScroll_vue_vue_type_template_id_d1c55ee8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InfiniteScroll.vue?vue&type=template&id=d1c55ee8& */ "./resources/js/Components/InfiniteScroll.vue?vue&type=template&id=d1c55ee8&");
+/* harmony import */ var _InfiniteScroll_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InfiniteScroll.vue?vue&type=script&lang=js& */ "./resources/js/Components/InfiniteScroll.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _InfiniteScroll_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _InfiniteScroll_vue_vue_type_template_id_d1c55ee8___WEBPACK_IMPORTED_MODULE_0__.render,
+  _InfiniteScroll_vue_vue_type_template_id_d1c55ee8___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Components/InfiniteScroll.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Components/LikeNotification.vue":
 /*!******************************************************!*\
   !*** ./resources/js/Components/LikeNotification.vue ***!
@@ -27342,6 +27702,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Components/InfiniteScroll.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/Components/InfiniteScroll.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteScroll_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./InfiniteScroll.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/InfiniteScroll.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteScroll_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/Components/LikeNotification.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************!*\
   !*** ./resources/js/Components/LikeNotification.vue?vue&type=script&lang=js& ***!
@@ -28157,6 +28533,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Icons_vue_vue_type_template_id_e7723a42___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Icons_vue_vue_type_template_id_e7723a42___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Icons.vue?vue&type=template&id=e7723a42& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/Icons.vue?vue&type=template&id=e7723a42&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Components/InfiniteScroll.vue?vue&type=template&id=d1c55ee8&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/Components/InfiniteScroll.vue?vue&type=template&id=d1c55ee8& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteScroll_vue_vue_type_template_id_d1c55ee8___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteScroll_vue_vue_type_template_id_d1c55ee8___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteScroll_vue_vue_type_template_id_d1c55ee8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./InfiniteScroll.vue?vue&type=template&id=d1c55ee8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/InfiniteScroll.vue?vue&type=template&id=d1c55ee8&");
 
 
 /***/ }),
@@ -29503,6 +29896,40 @@ var render = function() {
         ])
       : _vm._e()
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/InfiniteScroll.vue?vue&type=template&id=d1c55ee8&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/InfiniteScroll.vue?vue&type=template&id=d1c55ee8& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", {
+    directives: [
+      {
+        name: "observe-visibility",
+        rawName: "v-observe-visibility",
+        value: _vm.handleScrolledToBottom,
+        expression: "handleScrolledToBottom"
+      }
+    ]
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -33432,132 +33859,146 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("app-layout", [
-    _c("div", { staticClass: "w-full flex" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.searchText,
-            expression: "searchText"
-          }
-        ],
-        staticClass: "w-full border-md my-4 pl-2 h-10 rounded-l-md",
-        attrs: { type: "text", placeholder: "Search people by username" },
-        domProps: { value: _vm.searchText },
-        on: {
-          keyup: function($event) {
-            if (
-              !$event.type.indexOf("key") &&
-              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-            ) {
-              return null
+  return _c(
+    "app-layout",
+    [
+      _c("div", { staticClass: "w-full flex" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.searchText,
+              expression: "searchText"
             }
-            return _vm.search()
-          },
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.searchText = $event.target.value
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass:
-            "flex bg-blue-400 w-24 h-10 my-4 justify-center items-center rounded-r-md",
+          ],
+          staticClass: "w-full border-md my-4 pl-2 h-10 rounded-l-md",
+          attrs: { type: "text", placeholder: "Search people by username" },
+          domProps: { value: _vm.searchText },
           on: {
-            click: function($event) {
+            keyup: function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+              ) {
+                return null
+              }
               return _vm.search()
+            },
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.searchText = $event.target.value
             }
           }
-        },
-        [_c("Icons", { attrs: { icon: "search" } })],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _vm.users.length > 0
-      ? _c(
-          "div",
-          _vm._l(_vm.users, function(user) {
-            return _c(
-              "div",
-              {
-                key: user.id,
-                staticClass:
-                  "flex flex-row w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md border border-gray-500 rounded-md"
-              },
-              [
-                _c(
-                  "inertia-link",
-                  {
-                    staticClass: "hover:underline font-bold hover:opacity-80",
-                    attrs: { href: _vm.route("user", user) }
-                  },
-                  [
-                    _c("img", {
-                      staticClass: "h-10 w-10 mr-4 rounded-full container",
-                      attrs: { src: user.profile_photo_url }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "w-full" },
-                  [
-                    _c(
-                      "inertia-link",
-                      {
-                        staticClass: "hover:underline font-bold",
-                        attrs: { href: _vm.route("user", user) }
-                      },
-                      [
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "flex bg-blue-400 w-24 h-10 my-4 justify-center items-center rounded-r-md",
+            on: {
+              click: function($event) {
+                return _vm.search()
+              }
+            }
+          },
+          [_c("Icons", { attrs: { icon: "search" } })],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _vm.allUsers.data.length > 0
+        ? _c(
+            "div",
+            _vm._l(_vm.allUsers.data, function(user) {
+              return _c(
+                "div",
+                {
+                  key: user.id,
+                  staticClass:
+                    "flex flex-row w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md border border-gray-500 rounded-md"
+                },
+                [
+                  _c(
+                    "inertia-link",
+                    {
+                      staticClass: "hover:underline font-bold hover:opacity-80",
+                      attrs: { href: _vm.route("user", user) }
+                    },
+                    [
+                      _c("img", {
+                        staticClass: "h-10 w-10 mr-4 rounded-full container",
+                        attrs: { src: user.profile_photo_url }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "w-full" },
+                    [
+                      _c(
+                        "inertia-link",
+                        {
+                          staticClass: "hover:underline font-bold",
+                          attrs: { href: _vm.route("user", user) }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(user.name) +
+                              "\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "text-blue-400" }, [
+                        _vm._v("@" + _vm._s(user.username))
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "mt-1 break-all" }, [
                         _vm._v(
                           "\n                    " +
-                            _vm._s(user.name) +
+                            _vm._s(user.bio) +
                             "\n                "
                         )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "text-blue-400" }, [
-                      _vm._v("@" + _vm._s(user.username))
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "mt-1 break-all" }, [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(user.bio) +
-                          "\n                "
-                      )
-                    ])
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          }),
-          0
-        )
-      : _c("div", { staticClass: "w-full text-center text-md" }, [
-          _vm.$page.url.replace("/explore/", "")
-            ? _c("div", [
-                _vm._v(
-                  '\n            No results for "' +
-                    _vm._s(_vm.$page.url.replace("/explore/", "")) +
-                    '"\n        '
-                )
-              ])
-            : _c("div", [_vm._v("No results")])
-        ])
-  ])
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            }),
+            0
+          )
+        : _c("div", { staticClass: "w-full text-center text-md" }, [
+            _vm.$page.url.replace("/explore/", "")
+              ? _c("div", [
+                  _vm._v(
+                    '\n            No results for "' +
+                      _vm._s(_vm.$page.url.replace("/explore/", "")) +
+                      '"\n        '
+                  )
+                ])
+              : _c("div", [_vm._v("No results")])
+          ]),
+      _vm._v(" "),
+      _vm.allUsers.data.length
+        ? _c("InfiniteScroll", {
+            on: {
+              scroll: function($event) {
+                return _vm.scroll()
+              }
+            }
+          })
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -33589,7 +34030,7 @@ var render = function() {
         attrs: { parent: null, placeholder: "What's happening?" }
       }),
       _vm._v(" "),
-      _vm._l(_vm.timeline, function(opinion) {
+      _vm._l(_vm.opinions.data, function(opinion) {
         return _c("OpinionCard", {
           key: opinion.id,
           attrs: {
@@ -33600,10 +34041,20 @@ var render = function() {
         })
       }),
       _vm._v(" "),
-      _vm.timeline.length == 0
+      _vm.opinions.data.length == 0
         ? _c("div", { staticClass: "text-center pt-10" }, [
             _vm._v("\n        No Opinions yet\n    ")
           ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.opinions.data.length
+        ? _c("InfiniteScroll", {
+            on: {
+              scroll: function($event) {
+                return _vm.scroll()
+              }
+            }
+          })
         : _vm._e()
     ],
     2
@@ -33632,11 +34083,10 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("app-layout", [
-    _c(
-      "div",
-      { staticClass: "mx-auto w-full" },
-      _vm._l(_vm.notifications, function(notification) {
+  return _c(
+    "app-layout",
+    [
+      _vm._l(_vm.allNotifications.data, function(notification) {
         return _c("div", { key: notification.id }, [
           _vm.followNotification(notification.type)
             ? _c(
@@ -33670,9 +34120,19 @@ var render = function() {
             : _vm._e()
         ])
       }),
-      0
-    )
-  ])
+      _vm._v(" "),
+      _vm.allNotifications.data.length
+        ? _c("InfiniteScroll", {
+            on: {
+              scroll: function($event) {
+                return _vm.scroll()
+              }
+            }
+          })
+        : _vm._e()
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -33738,7 +34198,7 @@ var render = function() {
         attrs: { parent: _vm.opinion.id, placeholder: "Type your reply" }
       }),
       _vm._v(" "),
-      _vm._l(_vm.replies, function(opinion) {
+      _vm._l(_vm.allReplies.data, function(opinion) {
         return _c("OpinionCard", {
           key: opinion.id,
           attrs: {
@@ -33747,7 +34207,17 @@ var render = function() {
             showOpinionReplayed: false
           }
         })
-      })
+      }),
+      _vm._v(" "),
+      _vm.allReplies.data.length
+        ? _c("InfiniteScroll", {
+            on: {
+              scroll: function($event) {
+                return _vm.scroll()
+              }
+            }
+          })
+        : _vm._e()
     ],
     2
   )
@@ -35304,11 +35774,11 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm.followers.length > 0
+      _vm.allFollowers.data.length > 0
         ? _c("div", { staticClass: "pt-4" }, [_vm._v("Followers")])
         : _c("div", { staticClass: "text-center" }, [_vm._v("No results")]),
       _vm._v(" "),
-      _vm._l(_vm.followers, function(user) {
+      _vm._l(_vm.allFollowers.data, function(user) {
         return _c(
           "div",
           {
@@ -35366,7 +35836,17 @@ var render = function() {
             ])
           ]
         )
-      })
+      }),
+      _vm._v(" "),
+      _vm.allFollowers.data.length
+        ? _c("InfiniteScroll", {
+            on: {
+              scroll: function($event) {
+                return _vm.scroll()
+              }
+            }
+          })
+        : _vm._e()
     ],
     2
   )
@@ -35423,11 +35903,11 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm.following.length > 0
+      _vm.allFollowing.data.length > 0
         ? _c("div", { staticClass: "pt-4" }, [_vm._v("Following")])
         : _c("div", { staticClass: "text-center" }, [_vm._v("No results")]),
       _vm._v(" "),
-      _vm._l(_vm.following, function(user) {
+      _vm._l(_vm.allFollowing.data, function(user) {
         return _c(
           "div",
           {
@@ -35485,7 +35965,17 @@ var render = function() {
             ])
           ]
         )
-      })
+      }),
+      _vm._v(" "),
+      _vm.allFollowing.data.length
+        ? _c("InfiniteScroll", {
+            on: {
+              scroll: function($event) {
+                return _vm.scroll()
+              }
+            }
+          })
+        : _vm._e()
     ],
     2
   )
@@ -35684,7 +36174,7 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm._l(_vm.opinions, function(opinion) {
+      _vm._l(_vm.allOpinions.data, function(opinion) {
         return _c("OpinionCard", {
           key: opinion.id,
           attrs: {
@@ -35695,10 +36185,20 @@ var render = function() {
         })
       }),
       _vm._v(" "),
-      _vm.opinions.length == 0
+      _vm.allOpinions.data.length == 0
         ? _c("div", { staticClass: "text-center" }, [
             _vm._v("\n        No Opinions yet\n    ")
           ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.allOpinions.data.length
+        ? _c("InfiniteScroll", {
+            on: {
+              scroll: function($event) {
+                return _vm.scroll()
+              }
+            }
+          })
         : _vm._e()
     ],
     2
@@ -35820,6 +36320,325 @@ function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-observe-visibility/dist/vue-observe-visibility.esm.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/vue-observe-visibility/dist/vue-observe-visibility.esm.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__,
+/* harmony export */   "ObserveVisibility": () => /* binding */ ObserveVisibility,
+/* harmony export */   "install": () => /* binding */ install
+/* harmony export */ });
+function _typeof(obj) {
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function (obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function (obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  }
+}
+
+function _iterableToArray(iter) {
+  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
+}
+
+function processOptions(value) {
+  var options;
+
+  if (typeof value === 'function') {
+    // Simple options (callback-only)
+    options = {
+      callback: value
+    };
+  } else {
+    // Options object
+    options = value;
+  }
+
+  return options;
+}
+function throttle(callback, delay) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var timeout;
+  var lastState;
+  var currentArgs;
+
+  var throttled = function throttled(state) {
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    currentArgs = args;
+    if (timeout && state === lastState) return;
+    var leading = options.leading;
+
+    if (typeof leading === 'function') {
+      leading = leading(state, lastState);
+    }
+
+    if ((!timeout || state !== lastState) && leading) {
+      callback.apply(void 0, [state].concat(_toConsumableArray(currentArgs)));
+    }
+
+    lastState = state;
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+      callback.apply(void 0, [state].concat(_toConsumableArray(currentArgs)));
+      timeout = 0;
+    }, delay);
+  };
+
+  throttled._clear = function () {
+    clearTimeout(timeout);
+    timeout = null;
+  };
+
+  return throttled;
+}
+function deepEqual(val1, val2) {
+  if (val1 === val2) return true;
+
+  if (_typeof(val1) === 'object') {
+    for (var key in val1) {
+      if (!deepEqual(val1[key], val2[key])) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  return false;
+}
+
+var VisibilityState =
+/*#__PURE__*/
+function () {
+  function VisibilityState(el, options, vnode) {
+    _classCallCheck(this, VisibilityState);
+
+    this.el = el;
+    this.observer = null;
+    this.frozen = false;
+    this.createObserver(options, vnode);
+  }
+
+  _createClass(VisibilityState, [{
+    key: "createObserver",
+    value: function createObserver(options, vnode) {
+      var _this = this;
+
+      if (this.observer) {
+        this.destroyObserver();
+      }
+
+      if (this.frozen) return;
+      this.options = processOptions(options);
+
+      this.callback = function (result, entry) {
+        _this.options.callback(result, entry);
+
+        if (result && _this.options.once) {
+          _this.frozen = true;
+
+          _this.destroyObserver();
+        }
+      }; // Throttle
+
+
+      if (this.callback && this.options.throttle) {
+        var _ref = this.options.throttleOptions || {},
+            _leading = _ref.leading;
+
+        this.callback = throttle(this.callback, this.options.throttle, {
+          leading: function leading(state) {
+            return _leading === 'both' || _leading === 'visible' && state || _leading === 'hidden' && !state;
+          }
+        });
+      }
+
+      this.oldResult = undefined;
+      this.observer = new IntersectionObserver(function (entries) {
+        var entry = entries[0];
+
+        if (entries.length > 1) {
+          var intersectingEntry = entries.find(function (e) {
+            return e.isIntersecting;
+          });
+
+          if (intersectingEntry) {
+            entry = intersectingEntry;
+          }
+        }
+
+        if (_this.callback) {
+          // Use isIntersecting if possible because browsers can report isIntersecting as true, but intersectionRatio as 0, when something very slowly enters the viewport.
+          var result = entry.isIntersecting && entry.intersectionRatio >= _this.threshold;
+          if (result === _this.oldResult) return;
+          _this.oldResult = result;
+
+          _this.callback(result, entry);
+        }
+      }, this.options.intersection); // Wait for the element to be in document
+
+      vnode.context.$nextTick(function () {
+        if (_this.observer) {
+          _this.observer.observe(_this.el);
+        }
+      });
+    }
+  }, {
+    key: "destroyObserver",
+    value: function destroyObserver() {
+      if (this.observer) {
+        this.observer.disconnect();
+        this.observer = null;
+      } // Cancel throttled call
+
+
+      if (this.callback && this.callback._clear) {
+        this.callback._clear();
+
+        this.callback = null;
+      }
+    }
+  }, {
+    key: "threshold",
+    get: function get() {
+      return this.options.intersection && typeof this.options.intersection.threshold === 'number' ? this.options.intersection.threshold : 0;
+    }
+  }]);
+
+  return VisibilityState;
+}();
+
+function bind(el, _ref2, vnode) {
+  var value = _ref2.value;
+  if (!value) return;
+
+  if (typeof IntersectionObserver === 'undefined') {
+    console.warn('[vue-observe-visibility] IntersectionObserver API is not available in your browser. Please install this polyfill: https://github.com/w3c/IntersectionObserver/tree/master/polyfill');
+  } else {
+    var state = new VisibilityState(el, value, vnode);
+    el._vue_visibilityState = state;
+  }
+}
+
+function update(el, _ref3, vnode) {
+  var value = _ref3.value,
+      oldValue = _ref3.oldValue;
+  if (deepEqual(value, oldValue)) return;
+  var state = el._vue_visibilityState;
+
+  if (!value) {
+    unbind(el);
+    return;
+  }
+
+  if (state) {
+    state.createObserver(value, vnode);
+  } else {
+    bind(el, {
+      value: value
+    }, vnode);
+  }
+}
+
+function unbind(el) {
+  var state = el._vue_visibilityState;
+
+  if (state) {
+    state.destroyObserver();
+    delete el._vue_visibilityState;
+  }
+}
+
+var ObserveVisibility = {
+  bind: bind,
+  update: update,
+  unbind: unbind
+};
+
+function install(Vue) {
+  Vue.directive('observe-visibility', ObserveVisibility);
+  /* -- Add more components here -- */
+}
+/* -- Plugin definition & Auto-install -- */
+
+/* You shouldn't have to modify the code below */
+// Plugin
+
+var plugin = {
+  // eslint-disable-next-line no-undef
+  version: "1.0.0",
+  install: install
+};
+
+var GlobalVue = null;
+
+if (typeof window !== 'undefined') {
+  GlobalVue = window.Vue;
+} else if (typeof __webpack_require__.g !== 'undefined') {
+  GlobalVue = __webpack_require__.g.Vue;
+}
+
+if (GlobalVue) {
+  GlobalVue.use(plugin);
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (plugin);
+
 
 
 /***/ }),

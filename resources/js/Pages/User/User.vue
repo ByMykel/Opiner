@@ -71,13 +71,14 @@
         <OpinionCard
             :opinion="opinion"
             :linkReplies="true"
-            v-for="opinion in opinions"
+            v-for="opinion in allOpinions.data"
             :key="opinion.id"
             :showOpinionReplayed="true"
         />
-        <div class="text-center" v-if="opinions.length == 0">
+        <div class="text-center" v-if="allOpinions.data.length == 0">
             No Opinions yet
         </div>
+        <InfiniteScroll v-if="allOpinions.data.length" @scroll="scroll()" />
     </app-layout>
 </template>
 
@@ -86,6 +87,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import OpinionCard from "@/Components/OpinionCard";
 import Icons from "@/Components/Icons";
 import FollowButton from "@/Components/FollowButton";
+import InfiniteScroll from "@/Components/InfiniteScroll";
 import { Inertia } from "@inertiajs/inertia";
 
 export default {
@@ -99,6 +101,7 @@ export default {
     data() {
         return {
             hover_follor: this.hoverFollow,
+            allOpinions: this.opinions,
         };
     },
     components: {
@@ -106,6 +109,21 @@ export default {
         OpinionCard,
         Icons,
         FollowButton,
+        InfiniteScroll,
+    },
+    methods: {
+        scroll() {
+            if (this.allOpinions.next_page_url === null) {
+                return;
+            }
+
+            axios.get(this.allOpinions.next_page_url).then((response) => {
+                this.allOpinions = {
+                    ...response.data,
+                    data: [...this.allOpinions.data, ...response.data.data],
+                };
+            });
+        },
     },
 };
 </script>

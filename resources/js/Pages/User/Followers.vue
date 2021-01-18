@@ -9,10 +9,10 @@
                 <div class="text-blue-400">@{{ user.username }}</div>
             </div>
         </inertia-link>
-        <div class="pt-4" v-if="followers.length > 0">Followers</div>
+        <div class="pt-4" v-if="allFollowers.data.length > 0">Followers</div>
         <div class="text-center" v-else>No results</div>
         <div
-            v-for="user in followers"
+            v-for="user in allFollowers.data"
             :key="user.id"
             class="flex flex-row w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md border border-gray-500 rounded-md"
         >
@@ -40,6 +40,7 @@
                 </div>
             </div>
         </div>
+        <InfiniteScroll v-if="allFollowers.data.length" @scroll="scroll()" />
     </app-layout>
 </template>
 
@@ -47,6 +48,7 @@
 import AppLayout from "@/Layouts/AppLayout";
 import { Inertia } from "@inertiajs/inertia";
 import FollowButton from "../../Components/FollowButton";
+import InfiniteScroll from "@/Components/InfiniteScroll";
 import Icons from "@/Components/Icons";
 
 export default {
@@ -54,10 +56,30 @@ export default {
         user: null,
         followers: null,
     },
+    data() {
+        return {
+            allFollowers: this.followers,
+        };
+    },
     components: {
         AppLayout,
         FollowButton,
         Icons,
+        InfiniteScroll,
+    },
+    methods: {
+        scroll() {
+            if (this.allFollowers.next_page_url === null) {
+                return;
+            }
+
+            axios.get(this.allFollowers.next_page_url).then((response) => {
+                this.allFollowers = {
+                    ...response.data,
+                    data: [...this.allFollowers.data, ...response.data.data],
+                };
+            });
+        },
     },
 };
 </script>

@@ -11,21 +11,25 @@ use Inertia\Inertia;
 
 class OpinionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $timeline = Opinion::whereIn('user_id', Auth::user()->following()->get()->push(Auth::user())->pluck('id'))
+            ->with('user')
+            ->withCount('likes')
+            ->with('parent.user')
+            ->withcount(['likes as like' => function ($q) {
+                return $q->where('user_id', Auth::id());
+            }])
+            ->withCount('replies')
+            ->latest()
+            ->paginate();
+
+        if ($request->wantsJson()) {
+            return $timeline;
+        }
+
         return Inertia::render('Home', [
-            'timeline' => Opinion::whereIn('user_id', Auth::user()->following()->get()->push(Auth::user())->pluck('id'))
-                ->with('user')
-                ->withCount('likes')
-                ->with('parent.user')
-                ->withcount(['likes as like' => function ($q) {
-                    return $q->where('user_id', Auth::id());
-                }])
-                ->withCount('replies')
-                ->latest()
-                ->get()->each(function ($q) {
-                    return $q->updated_at->diffForHumans();
-                })
+            'timeline' => $timeline
         ]);
     }
 
@@ -57,8 +61,21 @@ class OpinionController extends Controller
         return redirect()->back();
     }
 
-    public function show(Opinion $opinion)
+    public function show(Opinion $opinion, Request $request)
     {
+        $replies = $opinion->replies()
+            ->withCount('likes')
+            ->withcount(['likes as like' => function ($q) {
+                return $q->where('user_id', Auth::id());
+            }])
+            ->withCount('replies')
+            ->with('user')
+            ->paginate();
+
+        if ($request->wantsJson()) {
+            return $replies;
+        }
+
         return Inertia::render('Opinion', [
             'user' => User::find($opinion->user_id),
             'opinion' => Opinion::where('id', '=', $opinion->id)
@@ -70,14 +87,7 @@ class OpinionController extends Controller
                 ->with('parent.user')
                 ->with('user')
                 ->first(),
-            'replies' => $opinion->replies()
-                ->withCount('likes')
-                ->withcount(['likes as like' => function ($q) {
-                    return $q->where('user_id', Auth::id());
-                }])
-                ->withCount('replies')
-                ->with('user')
-                ->get(),
+            'replies' => $replies
         ]);
     }
 }

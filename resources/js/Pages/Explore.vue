@@ -15,9 +15,9 @@
                 <Icons icon="search" />
             </button>
         </div>
-        <div v-if="users.length > 0">
+        <div v-if="allUsers.data.length > 0">
             <div
-                v-for="user in users"
+                v-for="user in allUsers.data"
                 :key="user.id"
                 class="flex flex-row w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md border border-gray-500 rounded-md"
             >
@@ -50,12 +50,14 @@
             </div>
             <div v-else>No results</div>
         </div>
+        <InfiniteScroll v-if="allUsers.data.length" @scroll="scroll()" />
     </app-layout>
 </template>
 
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import Icons from "@/Components/Icons";
+import InfiniteScroll from "@/Components/InfiniteScroll";
 import { Inertia } from "@inertiajs/inertia";
 
 export default {
@@ -65,11 +67,19 @@ export default {
     components: {
         AppLayout,
         Icons,
+        InfiniteScroll,
     },
     data() {
         return {
             searchText: "",
+            allUsers: this.users,
         };
+    },
+    mounted() {
+        // Don't paginate in /explore
+        if (this.$page.url === "/explore") {
+            this.allUsers.next_page_url = null;
+        }
     },
     methods: {
         search() {
@@ -78,6 +88,18 @@ export default {
             }
 
             Inertia.visit(route("explore", this.searchText));
+        },
+        scroll() {
+            if (this.allUsers.next_page_url === null) {
+                return;
+            }
+
+            axios.get(this.allUsers.next_page_url).then((response) => {
+                this.allUsers = {
+                    ...response.data,
+                    data: [...this.allUsers.data, ...response.data.data],
+                };
+            });
         },
     },
 };
