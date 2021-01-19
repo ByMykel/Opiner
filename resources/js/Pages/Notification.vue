@@ -1,6 +1,9 @@
 <template>
     <app-layout>
-        <div v-for="notification in allNotifications.data" :key="notification.id">
+        <div
+            v-for="notification in allNotifications.data"
+            :key="notification.id"
+        >
             <div v-if="followNotification(notification.type)">
                 <FollowNotification
                     :user="notification.data.user"
@@ -15,10 +18,14 @@
                 ></LikeNotification>
             </div>
         </div>
-        <div class="text-center pt-10" v-if="allNotifications.data.length == 0">
-            No notifications yet
-        </div>
-        <InfiniteScroll v-if="allNotifications.data.length" @scroll="scroll()" />
+        <InfoMessage
+            v-if="notifications.data.length == 0"
+            text="No notifications yet"
+        />
+        <InfiniteScroll
+            v-if="allNotifications.data.length"
+            @scroll="scroll()"
+        />
     </app-layout>
 </template>
 
@@ -28,6 +35,7 @@ import OpinionCard from "@/Components/OpinionCard";
 import FollowNotification from "@/Components/FollowNotification";
 import LikeNotification from "@/Components/LikeNotification";
 import InfiniteScroll from "@/Components/InfiniteScroll";
+import InfoMessage from "@/Components/InfoMessage";
 
 export default {
     props: {
@@ -44,6 +52,7 @@ export default {
         FollowNotification,
         LikeNotification,
         InfiniteScroll,
+        InfoMessage,
     },
     methods: {
         followNotification(type) {
@@ -60,7 +69,10 @@ export default {
             axios.get(this.allNotifications.next_page_url).then((response) => {
                 this.allNotifications = {
                     ...response.data,
-                    data: [...this.allNotifications.data, ...response.data.data],
+                    data: [
+                        ...this.allNotifications.data,
+                        ...response.data.data,
+                    ],
                 };
             });
         },

@@ -30,11 +30,7 @@
                 </div>
             </div>
         </div>
-        <div v-else class="w-full text-center text-md">
-            <div v-if="$page.url !== '/explore' && $page.url !== '/explore/'">
-                No results for "{{ resultsMessage }}"
-            </div>
-        </div>
+        <InfoMessage v-if="showMessage" :text="resultsMessage" />
         <InfiniteScroll v-if="allUsers.data.length" @scroll="scroll()" />
     </app-layout>
 </template>
@@ -44,6 +40,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import InfiniteScroll from "@/Components/InfiniteScroll";
 import { Inertia } from "@inertiajs/inertia";
 import SearchBar from "../Components/SearchBar.vue";
+import InfoMessage from "@/Components/InfoMessage";
 
 export default {
     props: {
@@ -53,6 +50,7 @@ export default {
         AppLayout,
         InfiniteScroll,
         SearchBar,
+        InfoMessage,
     },
     data() {
         return {
@@ -61,13 +59,22 @@ export default {
     },
     computed: {
         resultsMessage() {
-            return this.$page.url.replace("/explore/", "").replace(/%20/g, " ");
+            return `No results for "${this.$page.url
+                .replace("/explore/", "")
+                .replace(/%20/g, " ")}"`;
+        },
+        showMessage() {
+            return (
+                this.$page.url !== "/explore" &&
+                this.$page.url !== "/explore/" &&
+                this.allUsers.data.length == 0
+            );
         },
     },
     mounted() {
         // Don't paginate in /explore
         if (this.$page.url === "/explore" || this.$page.url === "/explore/") {
-            this.allUsers.next_page_url = null;
+            this.users.next_page_url = null;
         }
     },
     methods: {

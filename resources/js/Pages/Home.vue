@@ -8,9 +8,7 @@
             :key="opinion.id"
             :showOpinionReplayed="true"
         />
-        <div class="text-center pt-10" v-if="opinions.data.length == 0">
-            No Opinions yet
-        </div>
+        <InfoMessage v-if="timeline.data.length == 0" text="No Opinions yet" />
         <InfiniteScroll v-if="opinions.data.length" @scroll="scroll()" />
     </app-layout>
 </template>
@@ -20,6 +18,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import OpinionCard from "@/Components/OpinionCard";
 import OpinionCreate from "@/Components/OpinionCreate";
 import InfiniteScroll from "@/Components/InfiniteScroll";
+import InfoMessage from "@/Components/InfoMessage";
 import { Inertia } from "@inertiajs/inertia";
 
 export default {
@@ -36,6 +35,7 @@ export default {
         OpinionCard,
         OpinionCreate,
         InfiniteScroll,
+        InfoMessage,
     },
     methods: {
         scroll() {
