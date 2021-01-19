@@ -33,10 +33,11 @@ export default {
     methods: {
         follow(user) {
             Inertia.post(route("user.follow", user), [], {
-                preserveState: false,
                 preserveScroll: true,
                 resetOnSuccess: false,
             });
+
+            user.follow = !user.follow;
         },
     },
 };
