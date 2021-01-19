@@ -76,7 +76,7 @@ export default {
     },
     mounted() {
         // Don't paginate in /explore
-        if (this.$page.url === "/explore") {
+        if (this.$page.url === "/explore" || this.$page.url === "/explore/") {
             this.allUsers.next_page_url = null;
         }
     },

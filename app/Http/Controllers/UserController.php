@@ -18,7 +18,6 @@ class UserController extends Controller
             $users = User::inRandomOrder()
                 ->whereNotIn('id', Auth::user()->following()->get()->pluck('id'))
                 ->where('id', '!=', Auth::user()->id)
-                ->limit(10)
                 ->withcount(['followers as follow' => function ($q) {
                     return $q->where('follower_id', Auth::id());
                 }])
