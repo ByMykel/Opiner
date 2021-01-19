@@ -127,10 +127,17 @@ export default {
     methods: {
         like(opinion) {
             Inertia.post(route("opinion.like", opinion.id), [], {
-                preserveState: false,
                 preserveScroll: true,
                 resetOnSuccess: false,
             });
+
+            if (opinion.like) {
+                opinion.like = 0;
+                opinion.likes_count--;
+            } else {
+                opinion.like = 1;
+                opinion.likes_count++;
+            }
         },
     },
 };
