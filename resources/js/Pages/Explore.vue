@@ -1,20 +1,6 @@
 <template>
     <app-layout>
-        <div class="w-full flex">
-            <input
-                v-model="searchText"
-                type="text"
-                class="w-full border-md my-4 pl-2 h-10 rounded-l-md"
-                placeholder="Search people by username"
-                @keyup.enter="search()"
-            />
-            <button
-                class="flex bg-blue-400 w-24 h-10 my-4 justify-center items-center rounded-r-md"
-                @click="search()"
-            >
-                <Icons icon="search" />
-            </button>
-        </div>
+        <SearchBar />
         <div v-if="allUsers.data.length > 0">
             <div
                 v-for="user in allUsers.data"
@@ -46,7 +32,7 @@
         </div>
         <div v-else class="w-full text-center text-md">
             <div v-if="$page.url !== '/explore' && $page.url !== '/explore/'">
-                No results for "{{ $page.url.replace("/explore/", "") }}"
+                No results for "{{ resultsMessage }}"
             </div>
         </div>
         <InfiniteScroll v-if="allUsers.data.length" @scroll="scroll()" />
@@ -55,9 +41,9 @@
 
 <script>
 import AppLayout from "@/Layouts/AppLayout";
-import Icons from "@/Components/Icons";
 import InfiniteScroll from "@/Components/InfiniteScroll";
 import { Inertia } from "@inertiajs/inertia";
+import SearchBar from "../Components/SearchBar.vue";
 
 export default {
     props: {
@@ -65,14 +51,18 @@ export default {
     },
     components: {
         AppLayout,
-        Icons,
         InfiniteScroll,
+        SearchBar,
     },
     data() {
         return {
-            searchText: "",
             allUsers: this.users,
         };
+    },
+    computed: {
+        resultsMessage() {
+            return this.$page.url.replace("/explore/", "").replace(/%20/g, " ");
+        },
     },
     mounted() {
         // Don't paginate in /explore
@@ -81,13 +71,6 @@ export default {
         }
     },
     methods: {
-        search() {
-            if (!this.searchText) {
-                return;
-            }
-
-            Inertia.visit(route("explore", this.searchText));
-        },
         scroll() {
             if (this.allUsers.next_page_url === null) {
                 return;
