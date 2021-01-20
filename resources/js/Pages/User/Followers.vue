@@ -11,35 +11,11 @@
         </inertia-link>
         <div class="pt-4" v-if="allFollowers.data.length > 0">Followers</div>
         <div class="text-center" v-else>No results</div>
-        <div
+        <UserCard
             v-for="user in allFollowers.data"
             :key="user.id"
-            class="flex flex-row w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md border border-gray-500 rounded-md"
-        >
-            <img
-                :src="user.profile_photo_url"
-                class="h-10 w-10 mr-4 rounded-full"
-            />
-            <div class="w-full">
-                <div class="flex justify-between">
-                    <div>
-                        <inertia-link
-                            :href="route('user', user)"
-                            class="hover:underline font-bold"
-                        >
-                            {{ user.name }}
-                        </inertia-link>
-                        <div class="text-blue-400">@{{ user.username }}</div>
-                    </div>
-                    <div v-if="$page.props.auth.id !== user.id">
-                        <FollowButton :user="user" />
-                    </div>
-                </div>
-                <div class="mt-1">
-                    {{ user.bio }}
-                </div>
-            </div>
-        </div>
+            :user="user"
+        />
         <InfiniteScroll v-if="allFollowers.data.length" @scroll="scroll()" />
     </app-layout>
 </template>
@@ -47,8 +23,8 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import { Inertia } from "@inertiajs/inertia";
-import FollowButton from "../../Components/FollowButton";
 import InfiniteScroll from "@/Components/InfiniteScroll";
+import UserCard from "@/Components/UserCard";
 import Icons from "@/Components/Icons";
 
 export default {
@@ -63,9 +39,9 @@ export default {
     },
     components: {
         AppLayout,
-        FollowButton,
         Icons,
         InfiniteScroll,
+        UserCard,
     },
     methods: {
         scroll() {

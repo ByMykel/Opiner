@@ -1,35 +1,7 @@
 <template>
     <app-layout>
         <SearchBar />
-        <div v-if="allUsers.data.length > 0">
-            <div
-                v-for="user in allUsers.data"
-                :key="user.id"
-                class="flex flex-row w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md border border-gray-500 rounded-md"
-            >
-                <inertia-link
-                    :href="route('user', user)"
-                    class="hover:underline font-bold hover:opacity-80"
-                >
-                    <img
-                        :src="user.profile_photo_url"
-                        class="h-10 w-10 mr-4 rounded-full container"
-                    />
-                </inertia-link>
-                <div class="w-full">
-                    <inertia-link
-                        :href="route('user', user)"
-                        class="hover:underline font-bold"
-                    >
-                        {{ user.name }}
-                    </inertia-link>
-                    <div class="text-blue-400">@{{ user.username }}</div>
-                    <div class="mt-1 break-all">
-                        {{ user.bio }}
-                    </div>
-                </div>
-            </div>
-        </div>
+        <UserCard v-for="user in allUsers.data" :key="user.id" :user="user" />
         <InfoMessage v-if="showMessage" :text="resultsMessage" />
         <InfiniteScroll v-if="allUsers.data.length" @scroll="scroll()" />
     </app-layout>
@@ -41,6 +13,7 @@ import InfiniteScroll from "@/Components/InfiniteScroll";
 import { Inertia } from "@inertiajs/inertia";
 import SearchBar from "../Components/SearchBar.vue";
 import InfoMessage from "@/Components/InfoMessage";
+import UserCard from "@/Components/UserCard";
 
 export default {
     props: {
@@ -51,6 +24,7 @@ export default {
         InfiniteScroll,
         SearchBar,
         InfoMessage,
+        UserCard,
     },
     data() {
         return {

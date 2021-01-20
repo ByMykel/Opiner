@@ -13,7 +13,11 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->search) {
-            $users = User::where('username', 'LIKE', '%' . $request->search . '%')->paginate();
+            $users = User::where('username', 'LIKE', '%' . $request->search . '%')
+                ->withcount(['followers as follow' => function ($q) {
+                    return $q->where('follower_id', Auth::id());
+                }])
+                ->paginate();
         } else {
             $users = User::inRandomOrder()
                 ->whereNotIn('id', Auth::user()->following()->get()->pluck('id'))
@@ -106,7 +110,7 @@ class UserController extends Controller
         if ($request->wantsJson()) {
             return $followers;
         }
-            
+
         return Inertia::render('User/Followers', [
             'user' => $user,
             'followers' => $followers
