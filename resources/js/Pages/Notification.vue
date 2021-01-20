@@ -1,23 +1,10 @@
 <template>
     <app-layout>
-        <div
+        <NotificationHandler
             v-for="notification in allNotifications.data"
             :key="notification.id"
-        >
-            <div v-if="followNotification(notification.type)">
-                <FollowNotification
-                    :user="notification.data.user"
-                    :read="notification.read_at"
-                ></FollowNotification>
-            </div>
-            <div v-if="likeNotification(notification.type)">
-                <LikeNotification
-                    :user="notification.data.user"
-                    :opinion="notification.data.opinion"
-                    :read="notification.read_at"
-                ></LikeNotification>
-            </div>
-        </div>
+            :notification="notification"
+        />
         <InfoMessage
             v-if="notifications.data.length == 0"
             text="No notifications yet"
@@ -32,10 +19,9 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import OpinionCard from "@/Components/OpinionCard";
-import FollowNotification from "@/Components/FollowNotification";
-import LikeNotification from "@/Components/LikeNotification";
 import InfiniteScroll from "@/Components/InfiniteScroll";
 import InfoMessage from "@/Components/InfoMessage";
+import NotificationHandler from "@/Components/NotificationHandler";
 
 export default {
     props: {
@@ -49,18 +35,11 @@ export default {
     components: {
         AppLayout,
         OpinionCard,
-        FollowNotification,
-        LikeNotification,
         InfiniteScroll,
         InfoMessage,
+        NotificationHandler,
     },
     methods: {
-        followNotification(type) {
-            return type === "App\\Notifications\\FollowNotification";
-        },
-        likeNotification(type) {
-            return type === "App\\Notifications\\LikeNotification";
-        },
         scroll() {
             if (this.allNotifications.next_page_url === null) {
                 return;
