@@ -10,9 +10,9 @@
                 >
                     <div class="font-semibold">
                         Replying to
-                        <span class="text-blue-400"
-                            >@{{ opinion.parent.user.username }}</span
-                        >
+                        <span class="text-blue-400">
+                            @{{ opinion.parent.user.username }}
+                        </span>
                     </div>
                 </inertia-link>
             </div>

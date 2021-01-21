@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import AppLayout from "@/Layouts/AppLayout";
 import Icons from "@/Components/Icons";
 
 export default {
@@ -24,7 +23,6 @@ export default {
         read: null,
     },
     components: {
-        AppLayout,
         Icons,
     },
 };

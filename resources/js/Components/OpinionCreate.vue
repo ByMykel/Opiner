@@ -18,7 +18,7 @@
                 <span
                     class="m-2"
                     :class="{ 'text-red-500': form.opinion.length > 280 }"
-                    >{{ form.opinion.length }}/280</span
+                    >{{ form.opinion.length }} / 280</span
                 >
             </div>
         </form>
@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import AppLayout from "@/Layouts/AppLayout";
 import { Inertia } from "@inertiajs/inertia";
 
 export default {
@@ -41,9 +40,6 @@ export default {
                 opinion: "",
             },
         };
-    },
-    components: {
-        AppLayout,
     },
     computed: {
         disabledSubmit() {

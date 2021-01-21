@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import AppLayout from "@/Layouts/AppLayout";
 import { Inertia } from "@inertiajs/inertia";
 
 export default {
