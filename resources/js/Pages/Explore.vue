@@ -10,7 +10,6 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import InfiniteScroll from "@/Components/InfiniteScroll";
-import { Inertia } from "@inertiajs/inertia";
 import SearchBar from "../Components/SearchBar.vue";
 import InfoMessage from "@/Components/InfoMessage";
 import UserCard from "@/Components/UserCard";

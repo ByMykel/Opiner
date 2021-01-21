@@ -9,23 +9,23 @@
                 <div class="text-blue-400">@{{ user.username }}</div>
             </div>
         </inertia-link>
-        <div class="pt-4" v-if="allFollowers.data.length > 0">Followers</div>
-        <div class="text-center" v-else>No results</div>
+        <div class="pt-4">Followers</div>
         <UserCard
             v-for="user in allFollowers.data"
             :key="user.id"
             :user="user"
         />
+        <InfoMessage v-if="allFollowers.data.length === 0" text="No followers yet" />
         <InfiniteScroll v-if="allFollowers.data.length" @scroll="scroll()" />
     </app-layout>
 </template>
 
 <script>
 import AppLayout from "@/Layouts/AppLayout";
-import { Inertia } from "@inertiajs/inertia";
 import InfiniteScroll from "@/Components/InfiniteScroll";
 import UserCard from "@/Components/UserCard";
 import Icons from "@/Components/Icons";
+import InfoMessage from "@/Components/InfoMessage";
 
 export default {
     props: {
@@ -42,6 +42,7 @@ export default {
         Icons,
         InfiniteScroll,
         UserCard,
+        InfoMessage
     },
     methods: {
         scroll() {

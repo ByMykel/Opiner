@@ -19,7 +19,6 @@ import OpinionCard from "@/Components/OpinionCard";
 import OpinionCreate from "@/Components/OpinionCreate";
 import InfiniteScroll from "@/Components/InfiniteScroll";
 import InfoMessage from "@/Components/InfoMessage";
-import { Inertia } from "@inertiajs/inertia";
 
 export default {
     props: {

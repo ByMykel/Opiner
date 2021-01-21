@@ -6,12 +6,11 @@
             v-if="opinion.parent_id"
         >
             <Icons icon="arrow-left" class="pr-5" />
-
             <div class="font-semibold">
                 Replying to
-                <span class="text-blue-400"
-                    >@{{ opinion.parent.user.username }}</span
-                >
+                <span class="text-blue-400">
+                    @{{ opinion.parent.user.username }}
+                </span>
             </div>
         </inertia-link>
         <OpinionCard
@@ -19,8 +18,7 @@
             :linkReplies="false"
             :showOpinionReplayed="false"
         />
-        <div class="mt-10"></div>
-        <OpinionCreate :parent="opinion.id" placeholder="Type your reply" />
+        <OpinionCreate class="mt-10" :parent="opinion.id" placeholder="Type your reply" />
         <OpinionCard
             :opinion="opinion"
             :linkReplies="true"
@@ -38,7 +36,6 @@ import OpinionCard from "@/Components/OpinionCard";
 import OpinionCreate from "@/Components/OpinionCreate";
 import Icons from "@/Components/Icons";
 import InfiniteScroll from "@/Components/InfiniteScroll";
-import { Inertia } from "@inertiajs/inertia";
 
 export default {
     props: {
@@ -56,7 +53,7 @@ export default {
         OpinionCard,
         OpinionCreate,
         Icons,
-        InfiniteScroll
+        InfiniteScroll,
     },
     methods: {
         scroll() {
