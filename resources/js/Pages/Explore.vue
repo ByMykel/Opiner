@@ -10,7 +10,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import InfiniteScroll from "@/Components/InfiniteScroll";
-import SearchBar from "../Components/SearchBar.vue";
+import SearchBar from "@/Components/SearchBar";
 import InfoMessage from "@/Components/InfoMessage";
 import UserCard from "@/Components/UserCard";
 

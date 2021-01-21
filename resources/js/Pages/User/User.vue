@@ -19,8 +19,6 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import OpinionCard from "@/Components/OpinionCard";
-import Icons from "@/Components/Icons";
-import FollowButton from "@/Components/FollowButton";
 import InfiniteScroll from "@/Components/InfiniteScroll";
 import InfoMessage from "@/Components/InfoMessage";
 import UserInfoProfile from "@/Components/UserInfoProfile";
@@ -40,8 +38,6 @@ export default {
     components: {
         AppLayout,
         OpinionCard,
-        Icons,
-        FollowButton,
         InfiniteScroll,
         InfoMessage,
         UserInfoProfile,
