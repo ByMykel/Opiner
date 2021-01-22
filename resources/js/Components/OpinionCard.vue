@@ -22,7 +22,7 @@
                     class="h-12 w-12 m-1 mr-3 flex-shrink-0"
                 >
                     <img
-                        class="w-12 h-12 rounded-full container hover:opacity-80 flex-shrink-0"
+                        class="w-12 h-12 rounded-full container hover:opacity-80 flex-shrink-0 object-cover"
                         :src="opinion.user.profile_photo_url"
                         alt=""
                     />

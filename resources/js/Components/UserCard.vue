@@ -21,7 +21,7 @@
                     <FollowButton :user="user" />
                 </div>
             </div>
-            <div class="mt-1">
+            <div class="mt-1 break-all">
                 {{ user.bio }}
             </div>
         </div>

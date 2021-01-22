@@ -6,7 +6,7 @@
             <div class="flex justify-center flex-col sm:flex-row mb-3">
                 <div class="mr-5 flex flex-col items-center">
                     <img
-                        class="w-24 h-24 rounded-full mx-2 container"
+                        class="w-24 h-24 rounded-full mx-2 container object-cover"
                         :src="user.profile_photo_url"
                         alt=""
                     />
