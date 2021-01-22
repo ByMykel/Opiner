@@ -2,6 +2,7 @@
 
 namespace App\Actions\Jetstream;
 
+use Illuminate\Support\Facades\DB;
 use Laravel\Jetstream\Contracts\DeletesUsers;
 
 class DeleteUser implements DeletesUsers
@@ -14,6 +15,9 @@ class DeleteUser implements DeletesUsers
      */
     public function delete($user)
     {
+        DB::table('notifications')->where('data->user->id', $user->id)->delete();
+
+        $user->notifications()->delete();
         $user->deleteProfilePhoto();
         $user->tokens->each->delete();
         $user->delete();
