@@ -12,7 +12,7 @@ A simple project that attempt to clone Twitter using Laravel 8.
 ![Notifications](https://i.imgur.com/sLwhoxh.png)
 
 ##### Profile
-![Profile](https://i.imgur.com/PY7RQF3.png)
+![Profile](https://i.imgur.com/PY7RQF3.png?1)
 
 ##### Opinion
 ![Opinion](https://i.imgur.com/g6oJfsa.png)
