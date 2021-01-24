@@ -2,6 +2,21 @@
 
 A simple project that attempt to clone Twitter using Laravel 8.
 
+##### Home
+![Home](https://i.imgur.com/dHSG7ZB.png)
+
+##### Explore
+![Explore](https://i.imgur.com/Us7Mf4N.png)
+
+##### Notifications
+![Notifications](https://i.imgur.com/sLwhoxh.png)
+
+##### Profile
+![Profile](https://i.imgur.com/PY7RQF3.png)
+
+##### Opinion
+![Opinion](https://i.imgur.com/g6oJfsa.png)
+
 ### Install
 Clone the git repository on your computer and install it's dependencies
 ```
