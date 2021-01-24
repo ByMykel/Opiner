@@ -31,26 +31,21 @@
                 <div class="break-all pb-2" v-if="user.bio">
                     {{ user.bio }}
                 </div>
-                <div class="flex" v-if="user.location">
-                    <Icons icon="location" />
-                    <span class="pl-1 truncate" :title="user.location">
-                        {{ user.location }}
-                    </span>
-                </div>
-                <div class="flex" v-if="user.website">
-                    <Icons icon="link" />
+                <UserProfileInfo icon="location" v-if="user.location">
+                    <span class="truncate">{{ user.location }}</span>
+                </UserProfileInfo>
+                <UserProfileInfo icon="link" v-if="user.website">
                     <a
-                        class="pl-1 text-blue-400 hover:underline truncate"
+                        class="text-blue-400 hover:underline truncate"
                         :href="user.website"
                         target="_blank"
                     >
                         {{ user.website }}
                     </a>
-                </div>
-                <div class="flex">
-                    <Icons icon="calendar" />
-                    <span class="pl-1">Joined {{ user.created_at_human }}</span>
-                </div>
+                </UserProfileInfo>
+                <UserProfileInfo icon="calendar">
+                    <span>Joined {{ user.created_at_human }}</span>
+                </UserProfileInfo>
             </div>
         </div>
         <div class="flex justify-around p-1 text-center w-full pt-5">
@@ -72,7 +67,7 @@
 
 <script>
 import FollowButton from "@/Components/FollowButton";
-import Icons from "@/Components/Icons";
+import UserProfileInfo from "@/Components/UserProfileInfo";
 
 export default {
     props: {
@@ -81,7 +76,7 @@ export default {
     },
     components: {
         FollowButton,
-        Icons,
+        UserProfileInfo,
     },
 };
 </script>

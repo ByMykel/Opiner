@@ -1,6 +1,6 @@
 <template>
     <app-layout>
-        <UserInfoProfile :user="user[0]" :profile="profile" />
+        <UserProfile :user="user[0]" :profile="profile" />
         <OpinionCard
             :opinion="opinion"
             :linkReplies="true"
@@ -21,7 +21,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import OpinionCard from "@/Components/OpinionCard";
 import InfiniteScroll from "@/Components/InfiniteScroll";
 import InfoMessage from "@/Components/InfoMessage";
-import UserInfoProfile from "@/Components/UserInfoProfile";
+import UserProfile from "@/Components/UserProfile";
 
 export default {
     props: {
@@ -40,7 +40,7 @@ export default {
         OpinionCard,
         InfiniteScroll,
         InfoMessage,
-        UserInfoProfile,
+        UserProfile,
     },
     methods: {
         scroll() {
