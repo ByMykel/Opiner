@@ -16,7 +16,6 @@
         <OpinionCard
             :opinion="opinion"
             :linkReplies="false"
-            :showOpinionReplayed="false"
         />
         <OpinionCreate class="mt-10" :parent="opinion.id" placeholder="Type your reply" />
         <OpinionCard
@@ -24,7 +23,6 @@
             :linkReplies="true"
             v-for="opinion in allReplies.data"
             :key="opinion.id"
-            :showOpinionReplayed="false"
         />
         <InfiniteScroll v-if="allReplies.data.length" @scroll="scroll()" />
     </app-layout>

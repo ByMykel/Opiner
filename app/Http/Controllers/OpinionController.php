@@ -90,4 +90,15 @@ class OpinionController extends Controller
             'replies' => $replies
         ]);
     }
+
+    public function destroy(Opinion $opinion)
+    {
+        if ($opinion->user_id !== Auth::id()) {
+            return abort(403);
+        }
+
+        $opinion->delete();
+
+        return redirect()->back();
+    }
 }
