@@ -1,6 +1,6 @@
 # Opiner
 
-A simple project that attempt to clone Twitter using Laravel 8.
+A simple Twitter clone built with Laravel 8.
 
 ##### Home
 ![Home](https://i.imgur.com/dHSG7ZB.png)
