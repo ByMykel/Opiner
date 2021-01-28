@@ -27,6 +27,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@inertiajs/progress": "^0.2.4",
         "vue-observe-visibility": "^1.0.0"
     }
 }
