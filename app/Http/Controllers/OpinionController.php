@@ -7,6 +7,7 @@ use App\Models\Opinion;
 use App\Notifications\LikeNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class OpinionController extends Controller
@@ -96,6 +97,9 @@ class OpinionController extends Controller
         if ($opinion->user_id !== Auth::id()) {
             return abort(403);
         }
+
+        DB::table('notifications')->whereIn('data->opinion->id', $opinion->replies()->pluck('id'))->delete();
+        DB::table('notifications')->where('data->opinion->id', $opinion->id)->delete();
 
         $opinion->delete();
 
