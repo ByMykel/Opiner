@@ -1,15 +1,11 @@
 <template>
     <div>
         <div
-            class="w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md border border-gray-500 rounded-md"
+            class="w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md rounded-md bg-white shadow"
         >
             <div
                 class="pb-2 pl-2 flex"
-                :class="[
-                    justify(opinion)
-                        ? 'justify-between'
-                        : 'justify-end',
-                ]"
+                :class="[jusitfy(opinion) ? 'justify-between' : 'justify-end']"
             >
                 <inertia-link
                     :href="route('opinion', opinion.parent_id)"
@@ -22,7 +18,11 @@
                         </span>
                     </div>
                 </inertia-link>
-                <DestroyButton v-if="canDestroy(opinion)" class="flex items-end" :opinion="opinion" />
+                <DestroyButton
+                    v-if="canDestroy(opinion)"
+                    class="flex items-end"
+                    :opinion="opinion"
+                />
             </div>
             <div class="flex">
                 <inertia-link
@@ -40,9 +40,6 @@
                             <span class="font-bold hover:underline">{{
                                 opinion.user.name
                             }}</span>
-                            <span class="text-blue-400"
-                                >@{{ opinion.user.username }}</span
-                            >
                         </inertia-link>
                         <span class="mx-2">·</span>
                         <span
@@ -97,11 +94,17 @@ export default {
             return this.$page.props.auth.id === opinion.user_id;
         },
         showRepliedUser(opinion) {
-            return opinion.parent_id && !route().current('opinion', opinion.parent_id);
+            return (
+                opinion.parent_id &&
+                !route().current("opinion", opinion.parent_id)
+            );
         },
-        justify(opinion) {
-            return opinion.parent_id && this.canDestroy(opinion) && !route().current('opinion', opinion.parent_id);
-        }
+        jusitfy(opinion) {
+            return (
+                opinion.parent_id &&
+                !route().current("opinion", opinion.parent_id)
+            );
+        },
     },
 };
 </script>

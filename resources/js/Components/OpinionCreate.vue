@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full border border-gray-500 rounded-md mt-2">
+    <div class="w-full rounded-md mt-2 bg-white shadow">
         <form @submit.prevent="submit">
             <textarea
                 ref="opinion-content"

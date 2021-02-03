@@ -2,7 +2,7 @@
     <div @click="destroy(opinion)">
         <Icons
             icon="trash"
-            class="text-gray-400 hover:text-blue-400 cursor-pointer"
+            class="text-gray-400 hover:text-red-400 cursor-pointer"
         />
     </div>
 </template>

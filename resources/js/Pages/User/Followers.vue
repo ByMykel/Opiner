@@ -15,7 +15,10 @@
             :key="user.id"
             :user="user"
         />
-        <InfoMessage v-if="allFollowers.data.length === 0" text="No followers yet" />
+        <InfoMessage
+            v-if="allFollowers.data.length === 0"
+            text="No followers yet"
+        />
         <InfiniteScroll v-if="allFollowers.data.length" @scroll="scroll()" />
     </app-layout>
 </template>
@@ -42,7 +45,7 @@ export default {
         Icons,
         InfiniteScroll,
         UserCard,
-        InfoMessage
+        InfoMessage,
     },
     methods: {
         scroll() {
