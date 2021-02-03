@@ -91,7 +91,7 @@ class OpinionController extends Controller
         ]);
     }
 
-    public function destroy(Opinion $opinion)
+    public function destroy(Request $request, Opinion $opinion)
     {
         if ($opinion->user_id !== Auth::id()) {
             return abort(403);
@@ -99,6 +99,17 @@ class OpinionController extends Controller
 
         $opinion->delete();
 
-        return redirect()->back();
+        preg_match('/\/opinion\/(\d+)/', $request->server('HTTP_REFERER'), $id);
+
+        if (count($id) === 0 || $this->checkOpinion($id[1])) {
+            return redirect()->back();
+        } else {
+            return redirect()->route('home');
+        }
+    }
+
+    public function checkOpinion($id)
+    {
+        return Opinion::where('id', $id)->count() > 0;
     }
 }
