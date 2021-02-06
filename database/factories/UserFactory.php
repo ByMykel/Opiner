@@ -24,7 +24,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'username' => $this->faker->unique()->userName,
+            'username' => $this->faker->unique()->regexify('[a-zA-Z0-9-_]{18,20}'),
             'bio' => $this->faker->text(160),
             'location' => $this->faker->country,
             'website' => $this->faker->url,
