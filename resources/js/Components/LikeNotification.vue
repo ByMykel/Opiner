@@ -14,8 +14,10 @@
             Liked your Opinion
         </div>
         <div class="border border-gray-500 rounded-md p-2 m-2 break-all">
-            <inertia-link :href="route('opinion', opinion.id)">
-                {{ opinion.opinion }}
+            <inertia-link
+                :href="route('opinion', opinion.id)"
+                v-html="opinion.opinion"
+            >
             </inertia-link>
         </div>
     </div>

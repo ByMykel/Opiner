@@ -37,6 +37,21 @@ class UserController extends Controller
         ]);
     }
 
+    public function mention(Request $request) {
+        $users = [];
+
+        if ($request->search) {
+            $users = User::where('username', 'LIKE', '%' . $request->search . '%')
+                ->withcount(['followers as follow' => function ($q) {
+                    return $q->where('follower_id', Auth::id());
+                }])
+                ->limit(5)
+                ->get();
+        }
+
+        return $users;
+    }
+
     public function follow(User $user)
     {
         if (Auth::user()->following()->find($user)) {

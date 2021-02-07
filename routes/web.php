@@ -16,6 +16,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/explore/{search?}', [UserController::class, 'index'])->name('explore');
     Route::get('/notifications', [UserNotificationController::class, 'index'])->name('notifications');
 
+    Route::get('/mention/{search?}', [UserController::class, 'mention'])->name('mention');
+    
     Route::prefix('user')->group(function () {
         Route::get('/{user:username}', [UserController::class, 'show'])->name('user');
         Route::get('/{user:username}/following', [UserController::class, 'following'])->name('user.following');

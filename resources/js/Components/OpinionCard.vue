@@ -3,10 +3,7 @@
         <div
             class="w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md rounded-md bg-white shadow"
         >
-            <div
-                class="pb-2 pl-2 flex"
-                :class="[jusitfy(opinion) ? 'justify-between' : 'justify-end']"
-            >
+            <div class="pb-2 m-1 flex" v-show="opinion.parent_id">
                 <inertia-link
                     :href="route('opinion', opinion.parent_id)"
                     v-if="showRepliedUser(opinion)"
@@ -18,49 +15,53 @@
                         </span>
                     </div>
                 </inertia-link>
-                <DestroyButton
-                    v-if="canDestroy(opinion)"
-                    class="flex items-end"
-                    :opinion="opinion"
-                />
             </div>
-            <div class="flex">
-                <inertia-link
-                    :href="route('user', opinion.user)"
-                    class="h-12 w-12 m-1 mr-3 flex-shrink-0"
-                >
-                    <img
-                        class="w-12 h-12 rounded-full container hover:opacity-80 flex-shrink-0 object-cover"
-                        :src="opinion.user.profile_photo_url"
-                    />
-                </inertia-link>
+            <div>
+                <div class="flex items-center">
+                    <inertia-link
+                        :href="route('user', opinion.user)"
+                        class="h-12 w-12 m-1 mr-3 flex-shrink-0"
+                    >
+                        <img
+                            class="w-12 h-12 rounded-full container hover:opacity-80 flex-shrink-0 object-cover"
+                            :src="opinion.user.profile_photo_url"
+                        />
+                    </inertia-link>
+                    <inertia-link :href="route('user', opinion.user)">
+                        <div class="font-bold hover:underline">
+                            {{ opinion.user.name }}
+                        </div>
+                        <div class="text-gray-500">
+                            @{{ opinion.user.username }}
+                        </div>
+                    </inertia-link>
+                </div>
                 <div class="w-full">
                     <div @click="visit(opinion)">
-                        <inertia-link :href="route('user', opinion.user)">
-                            <span class="font-bold hover:underline">{{
-                                opinion.user.name
-                            }}</span>
-                        </inertia-link>
-                        <span class="mx-2">·</span>
-                        <span
-                            class="hover:underline"
-                            :title="opinion.created_at"
-                            >{{ opinion.created_at_human }}</span
-                        >
-
                         <div
-                            class="mb-1 mr-1 break-all"
+                            class="my-2 break-words mx-1"
                             :class="{ 'cursor-pointer': linkReplies }"
-                        >
-                            {{ opinion.opinion }}
-                        </div>
+                            v-html="opinion.opinion"
+                        ></div>
                     </div>
-                    <div class="flex justify-around">
-                        <span class="flex">
-                            <Icons icon="chat" class="pr-1" />
-                            {{ opinion.replies_count }}
-                        </span>
-                        <LikeButton :opinion="opinion" />
+                    <span class="text-gray-500 m-1" :title="opinion.created_at">
+                        {{ opinion.created_at_human }}
+                    </span>
+                    <div class="border-t my-2 mx-1"></div>
+                    <div
+                        class="text-gray-500 mx-1 flex justify-between items-center"
+                    >
+                        <div class="flex space-x-4">
+                            <LikeButton :opinion="opinion" />
+                            <span class="flex">
+                                <Icons icon="chat" class="pr-1" />
+                                {{ opinion.replies_count }}
+                            </span>
+                        </div>
+                        <DestroyButton
+                            v-if="canDestroy(opinion)"
+                            :opinion="opinion"
+                        />
                     </div>
                 </div>
             </div>
@@ -94,12 +95,6 @@ export default {
             return this.$page.props.auth.id === opinion.user_id;
         },
         showRepliedUser(opinion) {
-            return (
-                opinion.parent_id &&
-                !route().current("opinion", opinion.parent_id)
-            );
-        },
-        jusitfy(opinion) {
             return (
                 opinion.parent_id &&
                 !route().current("opinion", opinion.parent_id)

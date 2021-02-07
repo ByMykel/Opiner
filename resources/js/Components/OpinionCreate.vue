@@ -1,13 +1,10 @@
 <template>
-    <div class="w-full rounded-md mt-2 bg-white shadow">
+    <div class="w-full rounded-md mt-2 bg-white shadow" ref="opinion-content">
         <form @submit.prevent="submit">
-            <textarea
-                ref="opinion-content"
-                @input="resizeTextarea()"
-                class="w-full resize-none border-none rounded-md"
-                :placeholder="placeholder"
-                v-model="form.opinion"
-            ></textarea>
+            <Mention
+                @opinionData="form.opinion = $event"
+                @opinionDataLength="opinionDataLength = $event"
+            />
             <div class="flex justify-between items-center">
                 <button
                     class="bg-blue-400 w-24 h-8 rounded-full m-2 disabled:opacity-50"
@@ -17,8 +14,8 @@
                 </button>
                 <span
                     class="m-2"
-                    :class="{ 'text-red-500': form.opinion.length > 280 }"
-                    >{{ form.opinion.length }} / 280</span
+                    :class="{ 'text-red-500': opinionDataLength > 280 }"
+                    >{{ opinionDataLength }} / 280</span
                 >
             </div>
         </form>
@@ -27,6 +24,7 @@
 
 <script>
 import { Inertia } from "@inertiajs/inertia";
+import Mention from "@/Components/Mention";
 
 export default {
     props: {
@@ -39,18 +37,20 @@ export default {
                 parent_id: this.parent,
                 opinion: "",
             },
+            opinionDataLength: 0,
         };
+    },
+    components: {
+        Mention,
     },
     computed: {
         disabledSubmit() {
-            return (
-                this.form.opinion.length == 0 || this.form.opinion.length > 280
-            );
+            return this.opinionDataLength == 0 || this.opinionDataLength > 280;
         },
     },
     methods: {
         submit() {
-            if (this.disabledSubmit || this.form.opinion.trim().length == 0) {
+            if (this.disabledSubmit) {
                 return;
             }
 
@@ -59,14 +59,6 @@ export default {
                 preserveScroll: true,
                 resetOnSuccess: false,
             });
-
-            this.form.opinion = "";
-            this.$refs["opinion-content"].style.height = "initial";
-        },
-        resizeTextarea() {
-            const textarea = this.$refs["opinion-content"];
-            textarea.style.height = "initial";
-            textarea.style.height = `${textarea.scrollHeight}px`;
         },
     },
 };
