@@ -40,28 +40,6 @@ export default {
             json: "",
             html: "",
             editor: new Editor({
-                editorProps: {
-                    handleTextInput: (view) => {
-                        if (
-                            this.maxlength &&
-                            view.state.doc.textContent.length >=
-                                this.maxlength &&
-                            view.state.selection.empty
-                        ) {
-                            return true;
-                        }
-                    },
-                    handlePaste: (view, event, slice) => {
-                        if (
-                            this.maxlength &&
-                            view.state.doc.textContent.length + slice.size >
-                                this.maxlength
-                        ) {
-                            slice.content = new DocumentFragment();
-                        }
-                    },
-                },
-
                 extensions: [
                     new Link(),
                     new CustomMention({
