@@ -38,7 +38,7 @@ class OpinionController extends Controller
     {
         $request->validate([
             'parent_id' => ['nullable', 'numeric'],
-            'opinion' => ['required', 'string', 'max:280'],
+            'opinion' => ['required', 'string'],
         ]);
 
         Auth::user()->opinions()->create([

@@ -17,7 +17,7 @@ class CreateOpinionsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('parent_id')->nullable()->constrained('opinions')->onDelete('cascade');
-            $table->string('opinion', 280);
+            $table->text('opinion');
             $table->timestamps();
         });
     }
