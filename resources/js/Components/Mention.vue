@@ -27,13 +27,16 @@
 
 <script>
 import { Editor, EditorContent } from "tiptap";
-import { Link } from "tiptap-extensions";
+import { Link, Placeholder } from "tiptap-extensions";
 import CustomMention from "./../CustomMention";
 import axios from "axios";
 
 export default {
     components: {
         EditorContent,
+    },
+    props: {
+        placeholder: String
     },
     data() {
         return {
@@ -42,6 +45,12 @@ export default {
             editor: new Editor({
                 extensions: [
                     new Link(),
+                    new Placeholder({
+                        emptyEditorClass: "is-editor-empty",
+                        emptyNodeText: this.placeholder,
+                        showOnlyWhenEditable: true,
+                        showOnlyCurrent: true,
+                    }),
                     new CustomMention({
                         onEnter: ({ query, range, command }) => {
                             this.query = query;
@@ -135,6 +144,9 @@ export default {
             let users = await axios.get(route("mention", query));
             this.filteredUsers = users.data;
         },
+    },
+    beforeDestroy() {
+        this.editor.destroy();
     },
 };
 </script>

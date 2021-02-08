@@ -4,6 +4,7 @@
             <Mention
                 @opinionData="form.opinion = $event"
                 @opinionDataLength="opinionDataLength = $event"
+                :placeholder="placeholder"
             />
             <div class="flex justify-between items-center">
                 <button
