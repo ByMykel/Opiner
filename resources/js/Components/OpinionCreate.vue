@@ -1,7 +1,7 @@
 <template>
     <div class="w-full rounded-md mt-2 bg-white shadow" ref="opinion-content">
         <form @submit.prevent="submit">
-            <Mention
+            <TiptapEditor
                 @opinionData="form.opinion = $event"
                 @opinionDataLength="opinionDataLength = $event"
                 :placeholder="placeholder"
@@ -25,7 +25,7 @@
 
 <script>
 import { Inertia } from "@inertiajs/inertia";
-import Mention from "@/Components/Mention";
+import TiptapEditor from "@/Components/TiptapEditor";
 
 export default {
     props: {
@@ -42,7 +42,7 @@ export default {
         };
     },
     components: {
-        Mention,
+        TiptapEditor,
     },
     computed: {
         disabledSubmit() {

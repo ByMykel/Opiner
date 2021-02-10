@@ -1,7 +1,7 @@
 <template>
     <div>
         <editor-content
-            class="w-full border-none rounded-md p-1 overflow-auto"
+            class="w-full border-none rounded-md p-3 overflow-auto"
             :editor="editor"
         />
         <div
