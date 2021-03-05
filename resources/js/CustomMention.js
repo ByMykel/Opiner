@@ -8,10 +8,11 @@ export default class CustomMention extends Mention {
 				"a",
 				{
 					class: this.options.mentionClass,
+					"data-id": node.attrs.id,
 					"data-username": node.attrs.label,
 					"href": `/user/${node.attrs.label}`
 				},
-				`@${node.attrs.label}`,
+				`@${node.attrs.label.slice(0, -1)}`,
 			],
 			parseDOM: [
 				{

@@ -94,8 +94,7 @@ export default {
                     this.$emit("opinionData", this.html);
                     this.$emit(
                         "opinionDataLength",
-                        this.editor.state.doc.textContent.length -
-                            this.insertMention.length
+                        this.editor.state.doc.textContent.length
                     );
                 },
             }),
