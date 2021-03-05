@@ -4,14 +4,14 @@
         :class="{ 'bg-blue-100': !read }"
     >
         <div class="flex">
-            <Icons icon="heart-solid" class="pr-2 text-red-500" />
+            <Icons icon="mention" class="pr-2 text-blue-500" />
             <inertia-link
                 :href="route('user', user)"
                 class="font-bold hover:underline pr-1"
             >
                 {{ user.name }}
             </inertia-link>
-            Liked your opinion
+            Mentioned you
         </div>
         <div class="border border-gray-500 rounded-md p-2 m-2 break-all">
             <inertia-link

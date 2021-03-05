@@ -13,12 +13,20 @@
                 :read="notification.read_at"
             ></LikeNotification>
         </div>
+        <div v-if="mentionNotification(notification.type)">
+            <MentionNotification
+                :user="notification.data.user"
+                :opinion="notification.data.opinion"
+                :read="notification.read_at"
+            ></MentionNotification>
+        </div>
     </div>
 </template>
 
 <script>
 import FollowNotification from "@/Components/FollowNotification";
 import LikeNotification from "@/Components/LikeNotification";
+import MentionNotification from "@/Components/MentionNotification";
 
 export default {
     props: {
@@ -26,7 +34,8 @@ export default {
     },
     components: {
         FollowNotification,
-        LikeNotification
+        LikeNotification,
+        MentionNotification
     },
     methods: {
         followNotification(type) {
@@ -34,6 +43,9 @@ export default {
         },
         likeNotification(type) {
             return type === "App\\Notifications\\LikeNotification";
+        },
+        mentionNotification(type) {
+            return type === "App\\Notifications\\MentionNotification";
         },
     },
 };

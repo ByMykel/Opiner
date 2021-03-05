@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Opinion;
 use App\Notifications\LikeNotification;
+use App\Notifications\MentionNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -41,10 +42,20 @@ class OpinionController extends Controller
             'opinion' => ['required', 'string'],
         ]);
 
-        Auth::user()->opinions()->create([
+        $opinion = Auth::user()->opinions()->create([
             'parent_id' => $request->parent_id,
             'opinion' => $request->opinion,
         ]);
+
+        preg_match_all('/data-id="(\d+)"/', $request->opinion, $mentions);
+
+        $mentions = array_unique($mentions[1]);
+
+        foreach($mentions as $user) {
+            if ($user != Auth::user()->id) {
+                User::find($user)->notify(new MentionNotification($opinion, Auth::user()));
+            }
+        }
 
         return redirect()->back();
     }
