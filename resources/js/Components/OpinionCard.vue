@@ -1,8 +1,28 @@
 <template>
     <div>
         <div
-            class="w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md rounded-md bg-white shadow"
+            class="w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md rounded-md bg-white shadow relative"
         >
+            <div
+                v-show="deleteConfirmation"
+                class="bg-red-500 w-full h-full absolute top-0 left-0 rounded-md bg-opacity-40 flex flex-col justify-center items-center"
+            >
+                <div class="bg-red-500 w-full h-1 rounded-t-md absolute top-0"></div>
+                <div>
+                    <button
+                        @click="deleteConfirmation = false"
+                        class="bg-white px-6 py-2 rounded-md mr-2 shadow hover:bg-gray-200 font-bold"
+                    >
+                        Cancel
+                    </button>
+                    <DestroyButton
+                        v-if="canDestroy(opinion)"
+                        :opinion="opinion"
+                    >
+                        Delete
+                    </DestroyButton>
+                </div>
+            </div>
             <div class="pb-2 m-1 flex" v-show="opinion.parent_id">
                 <inertia-link
                     :href="route('opinion', opinion.parent_id)"
@@ -58,10 +78,15 @@
                                 {{ opinion.replies_count }}
                             </span>
                         </div>
-                        <DestroyButton
+                        <div
+                            @click="deleteConfirmation = true"
                             v-if="canDestroy(opinion)"
-                            :opinion="opinion"
-                        />
+                        >
+                            <Icons
+                                icon="trash"
+                                class="text-gray-400 hover:text-red-400 cursor-pointer"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -84,6 +109,11 @@ export default {
         Icons,
         LikeButton,
         DestroyButton,
+    },
+    data() {
+        return {
+            deleteConfirmation: false,
+        };
     },
     methods: {
         visit(opinion) {

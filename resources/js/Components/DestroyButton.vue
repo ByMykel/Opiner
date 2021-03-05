@@ -1,10 +1,10 @@
 <template>
-    <div @click="destroy(opinion)">
-        <Icons
-            icon="trash"
-            class="text-gray-400 hover:text-red-400 cursor-pointer"
-        />
-    </div>
+    <button
+        class="text-white px-6 py-2 rounded-md bg-red-500 shadow hover:bg-red-600 font-bold"
+        @click="destroy(opinion)"
+    >
+        <slot></slot>
+    </button>
 </template>
 
 <script>
