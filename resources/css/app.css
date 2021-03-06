@@ -17,4 +17,8 @@
         content: attr(data-empty-text);
         @apply text-gray-400 float-left pointer-events-none h-0;
     }
+
+    .opinion-link a[rel="noopener noreferrer nofollow"] {
+        @apply hover:underline text-blue-400;
+    }
 }

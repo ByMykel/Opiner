@@ -59,7 +59,7 @@
                 <div class="w-full">
                     <div @click="visit(opinion)">
                         <div
-                            class="my-2 break-words mx-1"
+                            class="my-2 break-words mx-1 opinion-link"
                             :class="{ 'cursor-pointer': linkReplies }"
                             v-html="opinion.opinion"
                         ></div>
