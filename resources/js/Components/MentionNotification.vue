@@ -13,7 +13,7 @@
             </inertia-link>
             Mentioned you
         </div>
-        <div class="border border-gray-500 rounded-md p-2 m-2 break-all">
+        <div class="border border-gray-500 rounded-md p-2 m-2 break-all opinion-link">
             <inertia-link
                 :href="route('opinion', opinion.id)"
                 v-html="opinion.opinion"
