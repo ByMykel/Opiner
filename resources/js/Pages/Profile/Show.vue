@@ -2,6 +2,10 @@
     <app-layout>
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+                <div>
+                    <theme-form />
+                </div>
+
                 <div v-if="$page.props.jetstream.canUpdateProfileInformation">
                     <update-profile-information-form :user="$page.props.user" />
 
@@ -40,6 +44,7 @@
     import TwoFactorAuthenticationForm from './TwoFactorAuthenticationForm'
     import UpdatePasswordForm from './UpdatePasswordForm'
     import UpdateProfileInformationForm from './UpdateProfileInformationForm'
+    import ThemeForm from './ThemeForm'
 
     export default {
         props: ['sessions'],
@@ -52,6 +57,7 @@
             TwoFactorAuthenticationForm,
             UpdatePasswordForm,
             UpdateProfileInformationForm,
+            ThemeForm
         },
     }
 </script>

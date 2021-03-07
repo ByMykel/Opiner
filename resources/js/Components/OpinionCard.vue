@@ -1,7 +1,7 @@
 <template>
     <div>
         <div
-            class="w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md sm:rounded-md bg-white shadow relative"
+            class="w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md sm:rounded-md bg-white dark:bg-gray-800 dark:text-white shadow relative"
         >
             <div
                 v-show="deleteConfirmation"
@@ -11,7 +11,7 @@
                 <div>
                     <button
                         @click="deleteConfirmation = false"
-                        class="bg-white px-6 py-2 rounded-md mr-2 shadow hover:bg-gray-200 font-bold"
+                        class="bg-white px-6 py-2 rounded-md mr-2 shadow hover:bg-gray-200 font-bold dark:text-black"
                     >
                         Cancel
                     </button>
@@ -51,7 +51,7 @@
                         <div class="font-bold hover:underline">
                             {{ opinion.user.name }}
                         </div>
-                        <div class="text-gray-500">
+                        <div class="text-gray-500 dark:text-gray-400">
                             @{{ opinion.user.username }}
                         </div>
                     </inertia-link>
@@ -64,12 +64,12 @@
                             v-html="opinion.opinion"
                         ></div>
                     </div>
-                    <span class="text-gray-500 m-1" :title="opinion.created_at">
+                    <span class="text-gray-500 dark:text-gray-400 m-1" :title="opinion.created_at">
                         {{ opinion.created_at_human }}
                     </span>
-                    <div class="border-t my-2 mx-1"></div>
+                    <div class="border-t my-2 mx-1 dark:border-gray-400"></div>
                     <div
-                        class="text-gray-500 mx-1 flex justify-between items-center"
+                        class="text-gray-500 mx-1 flex justify-between items-center dark:text-gray-400"
                     >
                         <div class="flex space-x-4">
                             <LikeButton :opinion="opinion" />

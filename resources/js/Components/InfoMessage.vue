@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full text-center text-md pt-10">
+    <div class="w-full text-center text-md pt-10 dark:text-white">
         {{ text }}
     </div>
 </template>

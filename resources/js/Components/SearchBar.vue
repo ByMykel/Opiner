@@ -3,7 +3,7 @@
         <input
             v-model="searchText"
             type="text"
-            class="w-full border-md my-4 pl-2 h-10 sm:rounded-l-md border-none shadow"
+            class="w-full border-md my-4 pl-2 h-10 sm:rounded-l-md border-none shadow dark:text-white dark:bg-gray-800"
             placeholder="Search people by username"
             @keyup.enter="search()"
         />

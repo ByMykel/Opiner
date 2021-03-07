@@ -1,15 +1,15 @@
 <template>
     <app-layout>
         <inertia-link :href="route('user', user)" class="flex p-2">
-            <div class="pr-5 p-3">
+            <div class="pr-5 p-3 dark:text-white">
                 <Icons icon="arrow-left" />
             </div>
             <div>
-                <div class="font-semibold">{{ user.name }}</div>
+                <div class="font-semibold dark:text-white">{{ user.name }}</div>
                 <div class="text-blue-400">@{{ user.username }}</div>
             </div>
         </inertia-link>
-        <div class="pt-4 ml-2">Following</div>
+        <div class="pt-4 ml-2 dark:text-white">Following</div>
         <UserCard
             v-for="user in allFollowing.data"
             :key="user.id"

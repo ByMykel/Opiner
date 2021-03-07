@@ -5,7 +5,7 @@
             :editor="editor"
         />
         <div
-            class="p-0.5 bg-white rounded w-auto"
+            class="p-0.5 bg-white dark:bg-gray-800 rounded w-auto"
             v-show="showSuggestions"
             ref="suggestions"
         >
@@ -13,8 +13,8 @@
                 <div
                     v-for="(user, index) in filteredUsers"
                     :key="user.id"
-                    class="rounded p-1 cursor-pointer hover:bg-blue-100 m-1"
-                    :class="{ 'bg-blue-100': navigatedUserIndex === index }"
+                    class="rounded p-1 cursor-pointer hover:bg-blue-100 m-1 dark:hover:bg-gray-600"
+                    :class="{ 'bg-blue-100 dark:bg-gray-600': navigatedUserIndex === index }"
                     @click="selectUser(user)"
                 >
                     {{ user.name }}

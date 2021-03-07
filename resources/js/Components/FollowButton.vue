@@ -5,7 +5,7 @@
         :class="[
             user.follow
                 ? 'hover:bg-red-400 bg-green-400'
-                : 'bg-none border-2 border-black hover:bg-green-400',
+                : 'bg-none border-2 border-black dark:border-white hover:bg-green-400',
         ]"
         @mouseover="hoverButton = true"
         @mouseleave="hoverButton = false"

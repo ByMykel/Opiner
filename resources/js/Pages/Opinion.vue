@@ -2,7 +2,7 @@
     <app-layout>
         <inertia-link
             :href="route('opinion', opinion.parent_id)"
-            class="flex py-4 p-4"
+            class="flex py-4 p-4 dark:text-white"
             v-if="opinion.parent_id"
         >
             <Icons icon="arrow-left" class="pr-5" />
