@@ -67,7 +67,9 @@ class OpinionController extends Controller
         } else {
             Auth::user()->likes()->attach($opinion);
 
-            $opinion->user->notify(new LikeNotification($opinion, Auth::user()));
+            if (Auth::user()->id !== $opinion->user->id) {
+                $opinion->user->notify(new LikeNotification($opinion, Auth::user()));
+            }
         }
 
         return redirect()->back();
