@@ -1,6 +1,6 @@
 <template>
     <div
-        class="w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md shadow rounded-md bg-white"
+        class="w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md shadow sm:rounded-md bg-white"
         :class="{ 'bg-blue-100': !read }"
     >
         <div class="flex justify-between">

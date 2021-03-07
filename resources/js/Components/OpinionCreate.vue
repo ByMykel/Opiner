@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full rounded-md mt-2 bg-white shadow" ref="opinion-content">
+    <div class="w-full sm:rounded-md mt-2 bg-white shadow" ref="opinion-content">
         <form @submit.prevent="submit">
             <TiptapEditor
                 @opinionData="form.opinion = $event"

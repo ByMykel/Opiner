@@ -9,7 +9,7 @@
                 <div class="text-blue-400">@{{ user.username }}</div>
             </div>
         </inertia-link>
-        <div class="pt-4">Following</div>
+        <div class="pt-4 ml-2">Following</div>
         <UserCard
             v-for="user in allFollowing.data"
             :key="user.id"

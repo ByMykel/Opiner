@@ -1,13 +1,13 @@
 <template>
     <div>
         <div
-            class="w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md rounded-md bg-white shadow relative"
+            class="w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md sm:rounded-md bg-white shadow relative"
         >
             <div
                 v-show="deleteConfirmation"
-                class="bg-red-500 w-full h-full absolute top-0 left-0 rounded-md bg-opacity-40 flex flex-col justify-center items-center"
+                class="bg-red-500 w-full h-full absolute top-0 left-0 sm:rounded-md bg-opacity-40 flex flex-col justify-center items-center"
             >
-                <div class="bg-red-500 w-full h-1 rounded-t-md absolute top-0"></div>
+                <div class="bg-red-500 w-full h-1 sm:rounded-t-md absolute top-0"></div>
                 <div>
                     <button
                         @click="deleteConfirmation = false"
