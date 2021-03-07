@@ -8,15 +8,11 @@
 </template>
 
 <script>
-import Icons from "@/Components/Icons";
 import { Inertia } from "@inertiajs/inertia";
 
 export default {
     props: {
         opinion: Object,
-    },
-    components: {
-        Icons,
     },
     methods: {
         destroy(opinion) {

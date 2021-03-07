@@ -15,12 +15,12 @@
                     >
                         Cancel
                     </button>
-                    <DestroyButton
+                    <OpinionDestroyButton
                         v-if="canDestroy(opinion)"
                         :opinion="opinion"
                     >
                         Delete
-                    </DestroyButton>
+                    </OpinionDestroyButton>
                 </div>
             </div>
             <div class="pb-2 m-1 flex" v-show="opinion.parent_id">
@@ -97,7 +97,7 @@
 <script>
 import Icons from "@/Components/Icons";
 import LikeButton from "@/Components/LikeButton";
-import DestroyButton from "@/Components/DestroyButton";
+import OpinionDestroyButton from "@/Components/OpinionDestroyButton";
 import { Inertia } from "@inertiajs/inertia";
 
 export default {
@@ -108,7 +108,7 @@ export default {
     components: {
         Icons,
         LikeButton,
-        DestroyButton,
+        OpinionDestroyButton,
     },
     data() {
         return {
