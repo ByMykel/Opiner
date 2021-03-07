@@ -33,8 +33,8 @@
                     </div>
                 </inertia-link>
                 <form @submit.prevent="logout">
-                    <button type="submit">
-                        <div class="flex rounded-md p-1 my-1 sm:pt-4 text-red-500 hover:text-red-300">
+                    <button type="submit" class="sm:mt-4">
+                        <div class="flex rounded-md p-1 my-1 text-red-500 hover:text-red-300">
                             <Icons icon="logout" />
                             <span class="px-1 hidden md:block">Log out</span>
                         </div>
