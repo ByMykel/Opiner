@@ -14,10 +14,13 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/home', [OpinionController::class, 'index'])->name('home');
     Route::get('/explore/{search?}', [UserController::class, 'index'])->name('explore');
-    Route::get('/notifications', [UserNotificationController::class, 'index'])->name('notifications');
+    Route::prefix('notifications')->group(function () {
+        Route::get('/', [UserNotificationController::class, 'index'])->name('notifications');
+        Route::delete('/{notifications:id}/delete', [UserNotificationController::class, 'destroy'])->name('notifications.delete');
+    });
 
     Route::get('/mention/{search?}', [UserController::class, 'mention'])->name('mention');
-    
+
     Route::prefix('user')->group(function () {
         Route::get('/{user:username}', [UserController::class, 'show'])->name('user');
         Route::get('/{user:username}/following', [UserController::class, 'following'])->name('user.following');

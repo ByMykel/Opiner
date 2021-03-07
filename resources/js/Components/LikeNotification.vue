@@ -3,17 +3,22 @@
         class="w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md shadow rounded-md bg-white"
         :class="{ 'bg-blue-100': !read }"
     >
-        <div class="flex">
-            <Icons icon="heart-solid" class="pr-2 text-red-500" />
-            <inertia-link
-                :href="route('user', user)"
-                class="font-bold hover:underline pr-1"
-            >
-                {{ user.name }}
-            </inertia-link>
-            Liked your opinion
+        <div class="flex justify-between">
+            <div class="flex">
+                <Icons icon="heart-solid" class="pr-2 text-red-500" />
+                <inertia-link
+                    :href="route('user', user)"
+                    class="font-bold hover:underline pr-1"
+                >
+                    {{ user.name }}
+                </inertia-link>
+                Liked your opinion
+            </div>
+            <NotificationDestroyButton :notification="notification" />
         </div>
-        <div class="border border-gray-500 rounded-md p-2 m-2 break-all opinion-link">
+        <div
+            class="border border-gray-500 rounded-md p-2 m-2 break-all opinion-link"
+        >
             <inertia-link
                 :href="route('opinion', opinion.id)"
                 v-html="opinion.opinion"
@@ -25,15 +30,18 @@
 
 <script>
 import Icons from "@/Components/Icons";
+import NotificationDestroyButton from "@/Components/NotificationDestroyButton";
 
 export default {
     props: {
+        notification: Object,
         user: null,
         opinion: null,
         read: null,
     },
     components: {
         Icons,
+        NotificationDestroyButton,
     },
 };
 </script>

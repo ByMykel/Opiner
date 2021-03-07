@@ -2,12 +2,14 @@
     <div>
         <div v-if="followNotification(notification.type)">
             <FollowNotification
+                :notification="notification"
                 :user="notification.data.user"
                 :read="notification.read_at"
             ></FollowNotification>
         </div>
         <div v-if="likeNotification(notification.type)">
             <LikeNotification
+                :notification="notification"
                 :user="notification.data.user"
                 :opinion="notification.data.opinion"
                 :read="notification.read_at"
@@ -15,6 +17,7 @@
         </div>
         <div v-if="mentionNotification(notification.type)">
             <MentionNotification
+                :notification="notification"
                 :user="notification.data.user"
                 :opinion="notification.data.opinion"
                 :read="notification.read_at"
@@ -35,7 +38,7 @@ export default {
     components: {
         FollowNotification,
         LikeNotification,
-        MentionNotification
+        MentionNotification,
     },
     methods: {
         followNotification(type) {
