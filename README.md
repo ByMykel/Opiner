@@ -6,9 +6,9 @@ A simple Twitter clone built with Laravel 8.
 ###### Desktop
 ![Home Desktop](https://i.imgur.com/6Ygu7vN.png)
 ###### Desktop Dark
-![Home Desktop Dark](https://i.imgur.com/aio0lWb.png)
+![Home Desktop Dark](https://i.imgur.com/B7JBgx5.png)
 ###### Mobile
-![Home Mobile](https://i.imgur.com/fGlfkf5.png)
+![Home Mobile](https://i.imgur.com/NEkIwlV.png)
 ###### Mobile Dark
 ![Home Desktop Dark](https://i.imgur.com/m1hcHcf.png)
 
