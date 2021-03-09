@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="min-h-screen flex max-w-6xl mx-auto">
-            <nav class="dark:text-white sm:pl-3 flex sm:block fixed p-1 sm:pt-20 bg-gray-200 dark:bg-gray-900 sm:bg-transparent bottom-0 w-full sm:top-0 sm:w-min justify-around z-50 border-t border-gray-800 sm:border-t-0">
+            <nav class="dark:text-white sm:pl-3 flex sm:block fixed p-1 sm:pt-20 bg-gray-200 dark:bg-gray-900 sm:bg-transparent bottom-0 w-full sm:top-0 sm:w-min justify-around z-50 border-t border-gray-300 dark:border-gray-800 sm:border-t-0">
                 <inertia-link class="w-auto" :href="route('home')">
                     <div class="flex rounded-full md:rounded-md p-1 my-1 hover:bg-gray-50 dark:hover:bg-gray-800" :class="{ 'dark:bg-gray-800 bg-gray-50' : route().current('home') }">
                         <Icons icon="home" />
