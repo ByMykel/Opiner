@@ -7,26 +7,27 @@
                 v-show="deleteConfirmation"
                 class="bg-red-500 w-full h-full absolute top-0 left-0 sm:rounded-md bg-opacity-40 flex flex-col justify-center items-center"
             >
-                <div class="bg-red-500 w-full h-1 sm:rounded-t-md absolute top-0"></div>
                 <div>
                     <button
-                        @click="deleteConfirmation = false"
                         class="bg-white px-6 py-2 rounded-md mr-2 shadow hover:bg-gray-200 font-bold dark:text-black"
+                        @click="deleteConfirmation = false"
                     >
                         Cancel
                     </button>
-                    <OpinionDestroyButton
+
+                    <opinion-card-destroy
                         v-if="canDestroy(opinion)"
                         :opinion="opinion"
                     >
                         Delete
-                    </OpinionDestroyButton>
+                    </opinion-card-destroy>
                 </div>
             </div>
-            <div class="pb-2 m-1 flex" v-show="opinion.parent_id">
+
+            <div v-show="opinion.parent_id" class="pb-2 m-1 flex">
                 <inertia-link
-                    :href="route('opinion', opinion.parent_id)"
                     v-if="showRepliedUser(opinion)"
+                    :href="route('opinion', opinion.parent_id)"
                 >
                     <div class="font-semibold">
                         Replying to
@@ -36,56 +37,74 @@
                     </div>
                 </inertia-link>
             </div>
+
             <div>
                 <div class="flex items-center">
                     <inertia-link
                         :href="route('user', opinion.user)"
-                        class="h-12 w-12 m-1 mr-3 flex-shrink-0"
+                        class="h-10 w-10 m-1 mr-3 flex-shrink-0"
                     >
                         <img
-                            class="w-12 h-12 rounded-full container hover:opacity-80 flex-shrink-0 object-cover"
+                            class="w-10 h-10 rounded-full container hover:opacity-80 flex-shrink-0 object-cover"
                             :src="opinion.user.profile_photo_url"
                         />
                     </inertia-link>
+
                     <inertia-link :href="route('user', opinion.user)">
                         <div class="font-bold hover:underline">
                             {{ opinion.user.name }}
                         </div>
+
                         <div class="text-gray-500 dark:text-gray-400">
                             @{{ opinion.user.username }}
                         </div>
                     </inertia-link>
                 </div>
                 <div class="w-full">
-                    <div @click="visit(opinion)">
+                    <a v-if="linkReplies" :href="route('opinion', opinion.id)">
                         <div
-                            class="my-2 break-words mx-1 opinion-link"
                             :class="{ 'cursor-pointer': linkReplies }"
+                            class="my-2 break-words mx-1 opinion-link"
                             v-html="opinion.opinion"
                         ></div>
-                    </div>
-                    <span class="text-gray-500 dark:text-gray-400 m-1" :title="opinion.created_at">
+                    </a>
+
+                    <div
+                        v-else
+                        :class="{ 'cursor-pointer': linkReplies }"
+                        class="my-2 break-words mx-1 opinion-link"
+                        v-html="opinion.opinion"
+                    ></div>
+
+                    <span
+                        :title="opinion.created_at"
+                        class="text-gray-500 dark:text-gray-400 mx-1"
+                    >
                         {{ opinion.created_at_human }}
                     </span>
-                    <div class="border-t my-2 mx-1 dark:border-gray-400"></div>
+
                     <div
-                        class="text-gray-500 mx-1 flex justify-between items-center dark:text-gray-400"
+                        class="text-gray-500 mx-1 flex justify-between items-center dark:text-gray-400 mt-4"
                     >
                         <div class="flex space-x-4">
-                            <LikeButton :opinion="opinion" />
+                            <opinion-card-like
+                                :opinion="opinion"
+                            ></opinion-card-like>
+
                             <span class="flex">
-                                <Icons icon="chat" class="pr-1" />
+                                <icons icon="chat" class="pr-1"></icons>
                                 {{ opinion.replies_count }}
                             </span>
                         </div>
+
                         <div
-                            @click="deleteConfirmation = true"
                             v-if="canDestroy(opinion)"
+                            @click="deleteConfirmation = true"
                         >
-                            <Icons
+                            <icons
                                 icon="trash"
                                 class="text-gray-400 hover:text-red-400 cursor-pointer"
-                            />
+                            ></icons>
                         </div>
                     </div>
                 </div>
@@ -96,34 +115,32 @@
 
 <script>
 import Icons from "@/Components/Icons";
-import LikeButton from "@/Components/LikeButton";
-import OpinionDestroyButton from "@/Components/OpinionDestroyButton";
-import { Inertia } from "@inertiajs/inertia";
+import OpinionCardLike from "@/Components/OpinionCardLike";
+import OpinionCardDestroy from "@/Components/OpinionCardDestroy";
 
 export default {
+    components: {
+        Icons,
+        OpinionCardLike,
+        OpinionCardDestroy,
+    },
+
     props: {
         opinion: Object,
         linkReplies: Boolean,
     },
-    components: {
-        Icons,
-        LikeButton,
-        OpinionDestroyButton,
-    },
+
     data() {
         return {
             deleteConfirmation: false,
         };
     },
-    methods: {
-        visit(opinion) {
-            if (!this.linkReplies) return;
 
-            Inertia.visit(route("opinion", opinion.id));
-        },
+    methods: {
         canDestroy(opinion) {
             return this.$page.props.auth.id === opinion.user_id;
         },
+
         showRepliedUser(opinion) {
             return (
                 opinion.parent_id &&

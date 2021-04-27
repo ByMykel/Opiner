@@ -18,7 +18,7 @@
                         @{{ user.username }}
                     </div>
                 </div>
-                <FollowButton v-if="!profile" :user="user" />
+                <user-card-follow v-if="!profile" :user="user" ></user-card-follow>
                 <inertia-link
                     :href="route('profile.show')"
                     v-else
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import FollowButton from "@/Components/FollowButton";
+import UserCardFollow from "@/Components/UserCardFollow";
 import UserProfileInfo from "@/Components/UserProfileInfo";
 
 export default {
@@ -75,7 +75,7 @@ export default {
         profile: Boolean,
     },
     components: {
-        FollowButton,
+        UserCardFollow,
         UserProfileInfo,
     },
 };

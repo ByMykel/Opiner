@@ -18,7 +18,7 @@
                     <div class="text-blue-400">@{{ user.username }}</div>
                 </div>
                 <div v-if="$page.props.auth.id !== user.id">
-                    <FollowButton :user="user" />
+                    <user-card-follow :user="user"></user-card-follow>
                 </div>
             </div>
             <div class="mt-1 break-all">
@@ -29,14 +29,14 @@
 </template>
 
 <script>
-import FollowButton from "@/Components/FollowButton";
+import UserCardFollow from "@/Components/UserCardFollow";
 
 export default {
     props: {
         user: Object,
     },
     components: {
-        FollowButton,
+        UserCardFollow,
     },
 };
 </script>

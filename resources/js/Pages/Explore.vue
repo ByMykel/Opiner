@@ -1,7 +1,11 @@
 <template>
     <app-layout>
-        <SearchBar />
-        <UserCard v-for="user in allUsers.data" :key="user.id" :user="user" />
+        <user-search-bar />
+        <user-card
+            v-for="user in allUsers.data"
+            :key="user.id"
+            :user="user"
+        ></user-card>
         <InfoMessage v-if="showMessage" :text="resultsMessage" />
         <InfiniteScroll v-if="allUsers.data.length" @scroll="scroll()" />
     </app-layout>
@@ -10,7 +14,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import InfiniteScroll from "@/Components/InfiniteScroll";
-import SearchBar from "@/Components/SearchBar";
+import UserSearchBar from "@/Components/UserSearchBar";
 import InfoMessage from "@/Components/InfoMessage";
 import UserCard from "@/Components/UserCard";
 
@@ -21,9 +25,9 @@ export default {
     components: {
         AppLayout,
         InfiniteScroll,
-        SearchBar,
+        UserSearchBar,
         InfoMessage,
-        UserCard,
+        UserCard
     },
     data() {
         return {

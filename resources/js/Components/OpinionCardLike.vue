@@ -1,40 +1,34 @@
 <template>
     <div
-        class="cursor-pointer flex hover:text-red-400"
         :class="{ 'text-red-500': opinion.like }"
+        class="cursor-pointer flex hover:text-red-400"
         @click="like(opinion)"
     >
-        <Icons v-if="opinion.like" icon="heart-solid" />
-        <Icons v-else icon="heart" />
+        <icons v-if="opinion.like" icon="heart-solid"></icons>
+
+        <icons v-else icon="heart"></icons>
+
         <span class="pl-1">{{ opinion.likes_count }}</span>
     </div>
 </template>
 
 <script>
 import Icons from "@/Components/Icons";
-import { Inertia } from "@inertiajs/inertia";
 
 export default {
     props: {
         opinion: Object,
     },
     components: {
-        Icons
+        Icons,
     },
     methods: {
         like(opinion) {
-            Inertia.post(route("opinion.like", opinion.id), [], {
+            this.$inertia.post(route("opinion.like", opinion.id), [], {
+                preserveState: false,
                 preserveScroll: true,
                 resetOnSuccess: false,
             });
-
-            if (opinion.like) {
-                opinion.like = 0;
-                opinion.likes_count--;
-            } else {
-                opinion.like = 1;
-                opinion.likes_count++;
-            }
         },
     },
 };

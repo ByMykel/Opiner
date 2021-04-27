@@ -1,6 +1,6 @@
 <template>
     <div class="flex">
-        <Icons :icon="icon" class="pr-1" />
+        <icons :icon="icon" class="pr-1"></icons>
         <slot></slot>
     </div>
 </template>
@@ -9,11 +9,12 @@
 import Icons from "@/Components/Icons";
 
 export default {
-    props: {
-        icon: String
-    },
     components: {
-        Icons
-    }
-}
+        Icons,
+    },
+    
+    props: {
+        icon: String,
+    },
+};
 </script>

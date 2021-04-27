@@ -16,6 +16,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'heart-solid'">
             <svg
                 class="w-5 h-5"
@@ -30,6 +31,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'chat'">
             <svg
                 class="w-5 h-5"
@@ -46,6 +48,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'location'">
             <svg
                 class="w-5 h-5"
@@ -60,6 +63,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'link'">
             <svg
                 class="w-5 h-5"
@@ -74,6 +78,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'calendar'">
             <svg
                 class="w-5 h-5"
@@ -88,6 +93,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'home'">
             <svg
                 class="w-5 h-5"
@@ -100,6 +106,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'bell'">
             <svg
                 class="w-5 h-5"
@@ -112,6 +119,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'cog'">
             <svg
                 class="w-5 h-5"
@@ -126,6 +134,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'search'">
             <svg
                 class="w-5 h-5"
@@ -140,6 +149,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'user'">
             <svg
                 class="w-5 h-5"
@@ -154,6 +164,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'logout'">
             <svg
                 class="w-5 h-5"
@@ -170,6 +181,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'arrow-left'">
             <svg
                 class="w-5 h-5"
@@ -184,6 +196,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'trash'">
             <svg
                 class="w-4 h-4"
@@ -200,6 +213,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'check'">
             <svg
                 class="w-6 h-6"
@@ -216,6 +230,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'plus'">
             <svg
                 class="w-6 h-6"
@@ -232,6 +247,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'x'">
             <svg
                 class="w-6 h-6"
@@ -248,6 +264,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'mention'">
             <svg
                 class="w-5 h-5"
@@ -262,6 +279,7 @@
                 ></path>
             </svg>
         </div>
+
         <div v-else-if="icon === 'moon'">
             <svg
                 class="w-6 h-6"
