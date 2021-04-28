@@ -1,30 +1,41 @@
 <template>
     <app-layout>
-        <inertia-link
+        <a
+            v-if="opinion.parent_id"
             :href="route('opinion', opinion.parent_id)"
             class="flex py-4 p-4 dark:text-white"
-            v-if="opinion.parent_id"
         >
-            <Icons icon="arrow-left" class="pr-5" />
+            <icons icon="arrow-left" class="pr-5"></icons>
+
             <div class="font-semibold">
                 Replying to
-                <span class="text-blue-400">
-                    @{{ opinion.parent.user.username }}
+                <span
+                    class="text-blue-400"
+                    v-text="opinion.parent.user.username"
+                >
                 </span>
             </div>
-        </inertia-link>
-        <OpinionCard
-            :opinion="opinion"
-            :linkReplies="false"
-        />
-        <OpinionCreate class="mt-10" :parent="opinion.id" placeholder="Type your reply" />
-        <OpinionCard
-            :opinion="opinion"
-            :linkReplies="true"
+        </a>
+
+        <opinion-card :opinion="opinion"></opinion-card>
+
+        <opinion-create
+            :parent="opinion.id"
+            class="mt-10"
+            placeholder="Type your reply"
+        ></opinion-create>
+
+        <opinion-card
             v-for="opinion in allReplies.data"
             :key="opinion.id"
-        />
-        <InfiniteScroll v-if="allReplies.data.length" @scroll="scroll()" />
+            :opinion="opinion"
+            linkReplies
+        ></opinion-card>
+
+        <infinite-scroll
+            v-if="allReplies.data.length"
+            @scroll="scroll()"
+        ></infinite-scroll>
     </app-layout>
 </template>
 
@@ -36,16 +47,6 @@ import Icons from "@/Components/Icons";
 import InfiniteScroll from "@/Components/InfiniteScroll";
 
 export default {
-    props: {
-        user: null,
-        opinion: null,
-        replies: null,
-    },
-    data() {
-        return {
-            allReplies: this.replies,
-        };
-    },
     components: {
         AppLayout,
         OpinionCard,
@@ -53,6 +54,19 @@ export default {
         Icons,
         InfiniteScroll,
     },
+
+    props: {
+        user: null,
+        opinion: null,
+        replies: null,
+    },
+
+    data() {
+        return {
+            allReplies: this.replies,
+        };
+    },
+
     methods: {
         scroll() {
             if (this.allReplies.next_page_url === null) {

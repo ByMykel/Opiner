@@ -1,49 +1,45 @@
 <template>
     <button
-        @click="follow(user)"
-        class="w-8 h-8 rounded-full my-2 flex justify-center items-center"
         :class="[
             user.follow
-                ? 'hover:bg-red-400 bg-green-400'
-                : 'bg-none border-2 border-black dark:border-white hover:bg-green-400',
+                ? 'hover:bg-red-300 bg-green-300'
+                : 'bg-gray-300 dark:bg-gray-600 dark:text-gray-100 hover:bg-green-300 hover:border-green-400',
         ]"
+        class="rounded-md flex py-1 px-5 justify-center items-center outline-none text-sm dark:text-black focus:outline-none focus:ring focus:border-blue-400"
+        @click="handleFollow"
         @mouseover="hoverButton = true"
         @mouseleave="hoverButton = false"
     >
         <span v-if="user.follow">
-            <Icons v-if="user.follow && !hoverButton" icon="check" />
-            <Icons v-else icon="x" />
+            <span v-if="user.follow && !hoverButton">Following</span>
+            <span v-else>Unfollow</span>
         </span>
-        <span v-else>
-            <Icons icon="plus" />
-        </span>
+
+        <span v-else>Follow</span>
     </button>
 </template>
 
 <script>
-import { Inertia } from "@inertiajs/inertia";
-import Icons from "@/Components/Icons";
-
 export default {
     props: {
         user: null,
     },
+
     data() {
         return {
             hoverButton: false,
         };
     },
-    components: {
-        Icons,
-    },
+
     methods: {
-        follow(user) {
-            Inertia.post(route("user.follow", user), [], {
+        handleFollow() {
+            this.$inertia.post(route("user.follow", this.user), [], {
+                preserveState: true,
                 preserveScroll: true,
                 resetOnSuccess: false,
             });
 
-            user.follow = !user.follow;
+            this.user.follow = !this.user.follow;
         },
     },
 };

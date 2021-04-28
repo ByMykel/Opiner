@@ -15,32 +15,28 @@
                         Cancel
                     </button>
 
-                    <opinion-card-destroy
-                        v-if="canDestroy(opinion)"
-                        :opinion="opinion"
-                    >
+                    <opinion-card-destroy v-if="canDestroy" :opinion="opinion">
                         Delete
                     </opinion-card-destroy>
                 </div>
             </div>
 
-            <div v-show="opinion.parent_id" class="pb-2 m-1 flex">
-                <inertia-link
-                    v-if="showRepliedUser(opinion)"
-                    :href="route('opinion', opinion.parent_id)"
-                >
+            <div v-if="showRepliedUser" class="pb-2 m-1 flex">
+                <a :href="route('opinion', opinion.parent_id)">
                     <div class="font-semibold">
-                        Replying to
-                        <span class="text-blue-400">
-                            @{{ opinion.parent.user.username }}
+                        <span>Replying to</span>
+                        <span
+                            class="text-blue-400"
+                            v-text="opinion.parent.user.username"
+                        >
                         </span>
                     </div>
-                </inertia-link>
+                </a>
             </div>
 
             <div>
                 <div class="flex items-center">
-                    <inertia-link
+                    <a
                         :href="route('user', opinion.user)"
                         class="h-10 w-10 m-1 mr-3 flex-shrink-0"
                     >
@@ -48,20 +44,24 @@
                             class="w-10 h-10 rounded-full container hover:opacity-80 flex-shrink-0 object-cover"
                             :src="opinion.user.profile_photo_url"
                         />
-                    </inertia-link>
+                    </a>
 
-                    <inertia-link :href="route('user', opinion.user)">
+                    <a :href="route('user', opinion.user)">
                         <div class="font-bold hover:underline">
                             {{ opinion.user.name }}
                         </div>
 
                         <div class="text-gray-500 dark:text-gray-400">
-                            @{{ opinion.user.username }}
+                            {{ opinion.user.username }}
                         </div>
-                    </inertia-link>
+                    </a>
                 </div>
                 <div class="w-full">
-                    <a v-if="linkReplies" :href="route('opinion', opinion.id)">
+                    <a
+                        v-if="linkReplies"
+                        :href="route('opinion', opinion.id)"
+                        class="select-text"
+                    >
                         <div
                             :class="{ 'cursor-pointer': linkReplies }"
                             class="my-2 break-words mx-1 opinion-link"
@@ -79,8 +79,8 @@
                     <span
                         :title="opinion.created_at"
                         class="text-gray-500 dark:text-gray-400 mx-1"
+                        v-text="opinion.created_at_human"
                     >
-                        {{ opinion.created_at_human }}
                     </span>
 
                     <div
@@ -93,12 +93,12 @@
 
                             <span class="flex">
                                 <icons icon="chat" class="pr-1"></icons>
-                                {{ opinion.replies_count }}
+                                <span v-text="opinion.replies_count"></span>
                             </span>
                         </div>
 
                         <div
-                            v-if="canDestroy(opinion)"
+                            v-if="canDestroy"
                             @click="deleteConfirmation = true"
                         >
                             <icons
@@ -136,15 +136,15 @@ export default {
         };
     },
 
-    methods: {
-        canDestroy(opinion) {
-            return this.$page.props.auth.id === opinion.user_id;
+    computed: {
+        canDestroy() {
+            return this.$page.props.auth.id === this.opinion.user_id;
         },
 
-        showRepliedUser(opinion) {
+        showRepliedUser() {
             return (
-                opinion.parent_id &&
-                !route().current("opinion", opinion.parent_id)
+                this.opinion.parent_id &&
+                !route().current("opinion", this.opinion.parent_id)
             );
         },
     },

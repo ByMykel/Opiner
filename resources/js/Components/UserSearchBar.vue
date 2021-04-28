@@ -21,16 +21,16 @@
 import Icons from "@/Components/Icons";
 
 export default {
+    components: {
+        Icons,
+    },
+
     data() {
         return {
             searchText: "",
         };
     },
 
-    components: {
-        Icons,
-    },
-    
     methods: {
         search() {
             if (!this.searchText.trim()) {

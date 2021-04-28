@@ -2,7 +2,7 @@
     <div
         :class="{ 'text-red-500': opinion.like }"
         class="cursor-pointer flex hover:text-red-400"
-        @click="like(opinion)"
+        @click="handleLike()"
     >
         <icons v-if="opinion.like" icon="heart-solid"></icons>
 
@@ -16,19 +16,24 @@
 import Icons from "@/Components/Icons";
 
 export default {
-    props: {
-        opinion: Object,
-    },
     components: {
         Icons,
     },
+
+    props: {
+        opinion: Object,
+    },
+
     methods: {
-        like(opinion) {
-            this.$inertia.post(route("opinion.like", opinion.id), [], {
-                preserveState: false,
+        handleLike() {
+            this.$inertia.post(route("opinion.like", this.opinion.id), [], {
+                preserveState: true,
                 preserveScroll: true,
                 resetOnSuccess: false,
             });
+
+            this.opinion.likes_count += this.opinion.like ? -1 : 1;
+            this.opinion.like = !this.opinion.like;
         },
     },
 };

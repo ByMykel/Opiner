@@ -1,5 +1,5 @@
 <template>
-    <div @click="destroy(notification)">
+    <div @click="handleDestroy()">
         <icons
             icon="trash"
             class="text-gray-400 hover:text-red-400 cursor-pointer"
@@ -20,12 +20,15 @@ export default {
     },
 
     methods: {
-        destroy(notification) {
-            this.$inertia.delete(route("notifications.delete", notification), {
-                preserveState: false,
-                preserveScroll: true,
-                resetOnSuccess: false,
-            });
+        handleDestroy() {
+            this.$inertia.delete(
+                route("notifications.delete", this.notification),
+                {
+                    preserveState: false,
+                    preserveScroll: true,
+                    resetOnSuccess: false,
+                }
+            );
         },
     },
 };

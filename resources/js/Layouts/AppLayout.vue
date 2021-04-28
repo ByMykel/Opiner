@@ -2,18 +2,18 @@
     <div>
         <div class="min-h-screen flex max-w-6xl mx-auto">
             <nav
-                class="dark:text-white sm:pl-3 flex sm:block fixed p-1 sm:pt-20 bg-gray-200 dark:bg-gray-900 sm:bg-transparent bottom-0 w-full sm:top-0 sm:w-min justify-around z-50 border-t border-gray-300 dark:border-gray-800 sm:border-t-0"
+                class="dark:text-white sm:pl-3 flex sm:block fixed p-1 sm:pt-20 bg-gray-200 dark:bg-gray-900 sm:bg-transparent bottom-0 w-full sm:top-0 sm:w-min justify-around z-50 border-t border-gray-300 dark:border-gray-700 sm:border-t-0"
             >
                 <inertia-link class="w-auto" :href="route('home')">
                     <div
-                        class="flex items-center rounded-full md:rounded-md p-1 my-1 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
-                        :class="{
-                            'dark:bg-gray-800 bg-gray-200 text-gray-800': route().current(
-                                'home'
-                            ),
-                        }"
+                        class="flex items-center rounded-full md:rounded-md p-1 my-1 hover:bg-gray-200 dark:hover:bg-gray-900 sm:dark:hover:bg-gray-800"
+                        :class="[
+                            route().current('home')
+                                ? 'text-gray-800 dark:text-white sm:dark:bg-gray-800 bg-gray-200 dark:bg-gray-900'
+                                : 'text-gray-600 dark:text-gray-400',
+                        ]"
                     >
-                        <Icons icon="home" />
+                        <icons icon="home"></icons>
 
                         <span class="px-2 hidden md:block font-bold">Home</span>
                     </div>
@@ -21,14 +21,14 @@
 
                 <inertia-link :href="route('explore')">
                     <div
-                        class="flex items-center rounded-full md:rounded-md p-1 my-1 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
-                        :class="{
-                            'dark:bg-gray-800 bg-gray-200 text-gray-800': route().current(
-                                'explore'
-                            ),
-                        }"
+                        class="flex items-center rounded-full md:rounded-md p-1 my-1 hover:bg-gray-200 dark:hover:bg-gray-900 sm:dark:hover:bg-gray-800"
+                        :class="[
+                            route().current('explore')
+                                ? 'text-gray-800 dark:text-white sm:dark:bg-gray-800 bg-gray-200 dark:bg-gray-900'
+                                : 'text-gray-600 dark:text-gray-400',
+                        ]"
                     >
-                        <Icons icon="search" />
+                        <icons icon="search"></icons>
 
                         <span class="px-2 hidden md:block font-bold"
                             >Explore</span
@@ -38,20 +38,20 @@
 
                 <inertia-link :href="route('notifications')">
                     <div
-                        class="flex items-center rounded-full md:rounded-md p-1 my-1 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
-                        :class="{
-                            'dark:bg-gray-800 bg-gray-200 text-gray-800': route().current(
-                                'notifications'
-                            ),
-                        }"
+                        class="flex items-center rounded-full md:rounded-md p-1 my-1 hover:bg-gray-200 dark:hover:bg-gray-900 sm:dark:hover:bg-gray-800"
+                        :class="[
+                            route().current('notifications')
+                                ? 'text-gray-800 dark:text-white sm:dark:bg-gray-800 bg-gray-200 dark:bg-gray-900'
+                                : 'text-gray-600 dark:text-gray-400',
+                        ]"
                     >
-                        <Icons
+                        <icons
                             icon="bell"
                             :class="{
                                 'animate-bounce':
                                     $page.props.notifications_count,
                             }"
-                        />
+                        ></icons>
 
                         <span class="px-2 hidden md:block font-bold"
                             >Notifications</span
@@ -61,15 +61,14 @@
 
                 <inertia-link :href="route('user', $page.props.auth)">
                     <div
-                        class="flex items-center rounded-full md:rounded-md p-1 my-1 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
-                        :class="{
-                            'dark:bg-gray-800 bg-gray-200 text-gray-800': route().current(
-                                'user',
-                                $page.props.auth
-                            ),
-                        }"
+                        class="flex items-center rounded-full md:rounded-md p-1 my-1 hover:bg-gray-200 dark:hover:bg-gray-900 sm:dark:hover:bg-gray-800"
+                        :class="[
+                            route().current('user', $page.props.auth)
+                                ? 'text-gray-800 dark:text-white sm:dark:bg-gray-800 bg-gray-200 dark:bg-gray-900'
+                                : 'text-gray-600 dark:text-gray-400',
+                        ]"
                     >
-                        <Icons icon="user" />
+                        <icons icon="user"></icons>
 
                         <span class="px-2 hidden md:block font-bold"
                             >Profile</span
@@ -79,14 +78,14 @@
 
                 <inertia-link :href="route('profile.show')">
                     <div
-                        class="flex items-center rounded-full md:rounded-md p-1 my-1 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
-                        :class="{
-                            'dark:bg-gray-800 bg-gray-200 text-gray-800': route().current(
-                                'profile.show'
-                            ),
-                        }"
+                        class="flex items-center rounded-full md:rounded-md p-1 my-1 hover:bg-gray-200 dark:hover:bg-gray-900 sm:dark:hover:bg-gray-800"
+                        :class="[
+                            route().current('profile.show')
+                                ? 'text-gray-800 dark:text-white sm:dark:bg-gray-800 bg-gray-200 dark:bg-gray-900'
+                                : 'text-gray-600 dark:text-gray-400',
+                        ]"
                     >
-                        <Icons icon="cog" />
+                        <icons icon="cog"></icons>
 
                         <span class="px-2 hidden md:block font-bold"
                             >Settings</span
@@ -99,7 +98,7 @@
                         <div
                             class="flex items-center rounded-md p-1 my-1 text-red-500 hover:text-red-300"
                         >
-                            <Icons icon="logout" />
+                            <icons icon="logout"></icons>
 
                             <span class="px-2 hidden md:block font-bold"
                                 >Log out</span
@@ -110,12 +109,12 @@
             </nav>
 
             <!-- Page Content -->
-            <main class="md:pl-6 pb-12 mx-auto w-full sm:w-4/6">
+            <main class="md:pl-7 pb-12 mx-auto w-full sm:w-4/6">
                 <slot></slot>
             </main>
 
             <!-- Modal Portal -->
-            <portal-target name="modal" multiple> </portal-target>
+            <portal-target name="modal" multiple></portal-target>
         </div>
     </div>
 </template>

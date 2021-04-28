@@ -1,25 +1,29 @@
 <template>
     <div>
         <editor-content
-            class="w-full border-none rounded-md p-3 overflow-auto"
             :editor="editor"
+            class="w-full border-none rounded-md p-3 overflow-auto"
         />
+
         <div
-            class="p-0.5 bg-white dark:bg-gray-800 rounded w-auto"
             v-show="showSuggestions"
             ref="suggestions"
+            class="p-0.5 bg-white dark:bg-gray-800 rounded w-auto"
         >
             <template v-if="hasResults">
                 <div
                     v-for="(user, index) in filteredUsers"
                     :key="user.id"
+                    :class="{
+                        'bg-blue-100 dark:bg-gray-600':
+                            navigatedUserIndex === index,
+                    }"
                     class="rounded p-1 cursor-pointer hover:bg-blue-100 m-1 dark:hover:bg-gray-600"
-                    :class="{ 'bg-blue-100 dark:bg-gray-600': navigatedUserIndex === index }"
                     @click="selectUser(user)"
-                >
-                    {{ user.name }}
-                </div>
+                    v-text="user.name"
+                ></div>
             </template>
+
             <div v-else class="rounded p-1 m-1">No users found</div>
         </div>
     </div>
@@ -35,9 +39,11 @@ export default {
     components: {
         EditorContent,
     },
+
     props: {
-        placeholder: String
+        placeholder: String,
     },
+
     data() {
         return {
             json: "",
@@ -105,30 +111,40 @@ export default {
             insertMention: () => {},
         };
     },
+
     computed: {
         hasResults() {
             return this.filteredUsers.length;
         },
+
         showSuggestions() {
             return this.query || this.hasResults;
         },
     },
+
+    beforeDestroy() {
+        this.editor.destroy();
+    },
+
     methods: {
         upHandler() {
             this.navigatedUserIndex =
                 (this.navigatedUserIndex + this.filteredUsers.length - 1) %
                 this.filteredUsers.length;
         },
+
         downHandler() {
             this.navigatedUserIndex =
                 (this.navigatedUserIndex + 1) % this.filteredUsers.length;
         },
+
         enterHandler() {
             const user = this.filteredUsers[this.navigatedUserIndex];
             if (user) {
                 this.selectUser(user);
             }
         },
+
         selectUser(user) {
             this.insertMention({
                 range: this.suggestionRange,
@@ -139,13 +155,11 @@ export default {
             });
             this.editor.focus();
         },
+
         async items(query) {
             let users = await axios.get(route("mention", query));
             this.filteredUsers = users.data;
         },
-    },
-    beforeDestroy() {
-        this.editor.destroy();
     },
 };
 </script>

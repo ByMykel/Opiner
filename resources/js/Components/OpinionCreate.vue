@@ -1,11 +1,15 @@
 <template>
-    <div class="w-full sm:rounded-md mt-2 bg-white dark:bg-gray-800 dark:text-white shadow" ref="opinion-content">
+    <div
+        ref="opinion-content"
+        class="w-full sm:rounded-md mt-2 bg-white dark:bg-gray-800 dark:text-white shadow"
+    >
         <form @submit.prevent="submit">
-            <TiptapEditor
+            <tiptap-editor
+                :placeholder="placeholder"
                 @opinionData="form.opinion = $event"
                 @opinionDataLength="opinionDataLength = $event"
-                :placeholder="placeholder"
-            />
+            ></tiptap-editor>
+
             <div class="flex justify-between items-center">
                 <button
                     class="bg-blue-400 w-24 h-8 rounded-full m-2 disabled:opacity-50"
@@ -13,25 +17,30 @@
                 >
                     Create
                 </button>
+
                 <span
                     class="m-2"
                     :class="{ 'text-red-500': opinionDataLength > 280 }"
-                    >{{ opinionDataLength }} / 280</span
-                >
+                    v-text="charactersCount"
+                ></span>
             </div>
         </form>
     </div>
 </template>
 
 <script>
-import { Inertia } from "@inertiajs/inertia";
 import TiptapEditor from "@/Components/TiptapEditor";
 
 export default {
+    components: {
+        TiptapEditor,
+    },
+
     props: {
         parent: null,
         placeholder: null,
     },
+
     data() {
         return {
             form: {
@@ -41,21 +50,24 @@ export default {
             opinionDataLength: 0,
         };
     },
-    components: {
-        TiptapEditor,
-    },
+
     computed: {
         disabledSubmit() {
             return this.opinionDataLength == 0 || this.opinionDataLength > 280;
         },
+
+        charactersCount() {
+            return this.opinionDataLength + " / 280";
+        },
     },
+
     methods: {
         submit() {
             if (this.disabledSubmit) {
                 return;
             }
 
-            Inertia.post(route("opinion.store"), this.form, {
+            this.$inertia.post(route("opinion.store"), this.form, {
                 preserveState: false,
                 preserveScroll: true,
                 resetOnSuccess: false,

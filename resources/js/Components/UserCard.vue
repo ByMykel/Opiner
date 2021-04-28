@@ -6,24 +6,25 @@
             :src="user.profile_photo_url"
             class="h-10 w-10 mr-4 rounded-full"
         />
+
         <div class="w-full">
             <div class="flex justify-between">
                 <div>
-                    <inertia-link
+                    <a
                         :href="route('user', user)"
                         class="hover:underline font-bold"
-                    >
-                        {{ user.name }}
-                    </inertia-link>
-                    <div class="text-blue-400">@{{ user.username }}</div>
+                        v-text="user.name"
+                    />
+
+                    <div class="text-gray-500" v-text="user.username"></div>
                 </div>
-                <div v-if="$page.props.auth.id !== user.id">
+
+                <div v-if="notSameUser">
                     <user-card-follow :user="user"></user-card-follow>
                 </div>
             </div>
-            <div class="mt-1 break-all">
-                {{ user.bio }}
-            </div>
+
+            <div class="mt-1 break-all" v-text="user.bio"></div>
         </div>
     </div>
 </template>
@@ -32,11 +33,18 @@
 import UserCardFollow from "@/Components/UserCardFollow";
 
 export default {
-    props: {
-        user: Object,
-    },
     components: {
         UserCardFollow,
     },
+
+    props: {
+        user: Object,
+    },
+
+    computed: {
+        notSameUser() {
+            return this.$page.props.auth.id !== this.user.id
+        }
+    }
 };
 </script>
