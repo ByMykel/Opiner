@@ -25,16 +25,29 @@
             </div>
 
             <div class="mt-1 break-all" v-text="user.bio"></div>
+
+            <user-profile-info
+                v-if="user.location"
+                icon="location"
+                class="pt-0.5"
+            >
+                <span
+                    class="text-xs flex items-center break-all text-gray-600 dark:text-gray-400"
+                    v-text="user.location"
+                ></span>
+            </user-profile-info>
         </div>
     </div>
 </template>
 
 <script>
 import UserCardFollow from "@/Components/UserCardFollow";
+import UserProfileInfo from "./UserProfileInfo";
 
 export default {
     components: {
         UserCardFollow,
+        UserProfileInfo,
     },
 
     props: {
@@ -43,8 +56,8 @@ export default {
 
     computed: {
         notSameUser() {
-            return this.$page.props.auth.id !== this.user.id
-        }
-    }
+            return this.$page.props.auth.id !== this.user.id;
+        },
+    },
 };
 </script>
