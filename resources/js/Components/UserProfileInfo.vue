@@ -1,5 +1,5 @@
 <template>
-    <div class="flex text-sm">
+    <div class="flex text-sm mb-1">
         <icons :icon="icon" class="pr-1"></icons>
         <slot></slot>
     </div>
