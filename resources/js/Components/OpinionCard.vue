@@ -42,8 +42,8 @@
                         class="h-10 w-10 m-1 mr-3 flex-shrink-0"
                     >
                         <img
-                            class="w-10 h-10 rounded-full container hover:opacity-80 flex-shrink-0 object-cover"
                             :src="opinion.user.profile_photo_url"
+                            class="w-10 h-10 rounded-full container hover:opacity-80 flex-shrink-0 object-cover"
                         />
                     </a>
 

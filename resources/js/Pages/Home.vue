@@ -1,15 +1,27 @@
 <template>
     <app-layout>
-        <OpinionCreate :parent="null" placeholder="What's happening?" />
-        <OpinionCard
-            :opinion="opinion"
-            :linkReplies="true"
+        <opinion-create
+            :parent="null"
+            placeholder="What's happening?"
+        ></opinion-create>
+
+        <opinion-card
             v-for="opinion in opinions.data"
             :key="opinion.id"
+            :opinion="opinion"
+            :linkReplies="true"
             :showOpinionReplayed="true"
-        />
-        <InfoMessage v-if="timeline.data.length == 0" text="No Opinions yet" />
-        <InfiniteScroll v-if="opinions.data.length" @scroll="scroll()" />
+        ></opinion-card>
+
+        <info-message
+            v-if="timeline.data.length == 0"
+            text="No Opinions yet"
+        ></info-message>
+
+        <infinite-scroll
+            v-if="opinions.data.length"
+            @scroll="scroll()"
+        ></infinite-scroll>
     </app-layout>
 </template>
 
@@ -21,14 +33,6 @@ import InfiniteScroll from "@/Components/InfiniteScroll";
 import InfoMessage from "@/Components/InfoMessage";
 
 export default {
-    props: {
-        timeline: null,
-    },
-    data() {
-        return {
-            opinions: this.timeline,
-        };
-    },
     components: {
         AppLayout,
         OpinionCard,
@@ -36,6 +40,17 @@ export default {
         InfiniteScroll,
         InfoMessage,
     },
+
+    props: {
+        timeline: null,
+    },
+
+    data() {
+        return {
+            opinions: this.timeline,
+        };
+    },
+
     methods: {
         scroll() {
             if (!this.opinions.next_page_url) {

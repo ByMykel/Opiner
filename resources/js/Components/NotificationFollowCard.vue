@@ -8,15 +8,17 @@
         <div class="flex justify-between">
             <div class="flex">
                 <icons icon="user" class="pr-2 text-purple-500"></icons>
-                
-                <inertia-link
+
+                <a
                     :href="route('user', user)"
                     class="font-bold hover:underline pr-1"
+                    v-text="user.name"
                 >
-                    {{ user.name }}
-                </inertia-link>
-                Followed you
+                </a>
+
+                <span>Followed you</span>
             </div>
+            
             <notification-destroy-button
                 :notification="notification"
             ></notification-destroy-button>

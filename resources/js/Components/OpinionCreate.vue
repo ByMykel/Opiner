@@ -12,15 +12,15 @@
 
             <div class="flex justify-between items-center">
                 <button
-                    class="bg-blue-400 w-24 h-8 rounded-full m-2 disabled:opacity-50"
                     :disabled="disabledSubmit"
+                    class="bg-blue-400 w-24 h-8 rounded-full m-2 disabled:opacity-50"
                 >
                     Create
                 </button>
 
                 <span
-                    class="m-2"
                     :class="{ 'text-red-500': opinionDataLength > 280 }"
+                    class="m-2"
                     v-text="charactersCount"
                 ></span>
             </div>

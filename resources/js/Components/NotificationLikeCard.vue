@@ -9,13 +9,15 @@
             <div class="flex">
                 <icons icon="heart-solid" class="pr-2 text-red-500"></icons>
 
-                <inertia-link
+                <a
                     :href="route('user', user)"
                     class="font-bold hover:underline pr-1"
+                    v-text="user.name"
                 >
-                    {{ user.name }}
-                </inertia-link>
-                Liked your opinion
+                   
+                </a>
+                
+                <span>Liked your opinion</span>
             </div>
 
             <notification-destroy-button

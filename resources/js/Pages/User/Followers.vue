@@ -1,25 +1,37 @@
 <template>
     <app-layout>
-        <inertia-link :href="route('user', user)" class="flex p-2">
+        <a :href="route('user', user)" class="flex p-2">
             <div class="pr-5 p-3 dark:text-white">
-                <Icons icon="arrow-left" />
+                <icons icon="arrow-left"></icons>
             </div>
+
             <div>
-                <div class="font-semibold dark:text-white">{{ user.name }}</div>
-                <div class="text-blue-400">@{{ user.username }}</div>
+                <div
+                    class="font-semibold dark:text-white"
+                    v-text="user.name"
+                ></div>
+
+                <div class="text-blue-400" v-text="user.username"></div>
             </div>
-        </inertia-link>
+        </a>
+
         <div class="pt-4 ml-2 dark:text-white">Followers</div>
-        <UserCard
+
+        <user-card
             v-for="user in allFollowers.data"
             :key="user.id"
             :user="user"
-        />
-        <InfoMessage
+        ></user-card>
+
+        <info-message
             v-if="allFollowers.data.length === 0"
             text="No followers yet"
-        />
-        <InfiniteScroll v-if="allFollowers.data.length" @scroll="scroll()" />
+        ></info-message>
+
+        <infinite-scroll
+            v-if="allFollowers.data.length"
+            @scroll="scroll()"
+        ></infinite-scroll>
     </app-layout>
 </template>
 
@@ -31,15 +43,6 @@ import Icons from "@/Components/Icons";
 import InfoMessage from "@/Components/InfoMessage";
 
 export default {
-    props: {
-        user: null,
-        followers: null,
-    },
-    data() {
-        return {
-            allFollowers: this.followers,
-        };
-    },
     components: {
         AppLayout,
         Icons,
@@ -47,6 +50,18 @@ export default {
         UserCard,
         InfoMessage,
     },
+
+    props: {
+        user: null,
+        followers: null,
+    },
+
+    data() {
+        return {
+            allFollowers: this.followers,
+        };
+    },
+
     methods: {
         scroll() {
             if (this.allFollowers.next_page_url === null) {

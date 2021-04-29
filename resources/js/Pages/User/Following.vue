@@ -1,22 +1,37 @@
 <template>
     <app-layout>
-        <inertia-link :href="route('user', user)" class="flex p-2">
+        <a :href="route('user', user)" class="flex p-2">
             <div class="pr-5 p-3 dark:text-white">
-                <Icons icon="arrow-left" />
+                <icons icon="arrow-left"></icons>
             </div>
+
             <div>
-                <div class="font-semibold dark:text-white">{{ user.name }}</div>
-                <div class="text-blue-400">@{{ user.username }}</div>
+                <div
+                    class="font-semibold dark:text-white"
+                    v-text="user.name"
+                ></div>
+
+                <div class="text-blue-400" v-text="user.username"></div>
             </div>
-        </inertia-link>
+        </a>
+
         <div class="pt-4 ml-2 dark:text-white">Following</div>
-        <UserCard
+
+        <user-card
             v-for="user in allFollowing.data"
             :key="user.id"
             :user="user"
-        />
-        <InfoMessage v-if="allFollowing.data.length === 0" text="No following yet" />
-        <InfiniteScroll v-if="allFollowing.data.length" @scroll="scroll()" />
+        ></user-card>
+
+        <info-message
+            v-if="allFollowing.data.length === 0"
+            text="No following yet"
+        ></info-message>
+
+        <infinite-scroll
+            v-if="allFollowing.data.length"
+            @scroll="scroll()"
+        ></infinite-scroll>
     </app-layout>
 </template>
 
@@ -28,22 +43,25 @@ import Icons from "@/Components/Icons";
 import InfoMessage from "@/Components/InfoMessage";
 
 export default {
-    props: {
-        user: null,
-        following: null,
-    },
-    data() {
-        return {
-            allFollowing: this.following,
-        };
-    },
     components: {
         AppLayout,
         Icons,
         UserCard,
         InfiniteScroll,
-        InfoMessage
+        InfoMessage,
     },
+
+    props: {
+        user: null,
+        following: null,
+    },
+
+    data() {
+        return {
+            allFollowing: this.following,
+        };
+    },
+
     methods: {
         scroll() {
             if (this.allFollowing.next_page_url === null) {

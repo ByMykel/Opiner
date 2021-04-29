@@ -1,18 +1,24 @@
 <template>
     <app-layout>
-        <UserProfile :user="user[0]" :profile="profile" />
-        <OpinionCard
-            :opinion="opinion"
-            :linkReplies="true"
+        <user-profile :user="user[0]" :profile="profile"></user-profile>
+
+        <opinion-card
             v-for="opinion in allOpinions.data"
             :key="opinion.id"
+            :opinion="opinion"
+            :linkReplies="true"
             :showOpinionReplayed="true"
-        />
-        <InfoMessage
+        ></opinion-card>
+
+        <info-message
             v-if="allOpinions.data.length === 0"
             text="No Opinions yet"
-        />
-        <InfiniteScroll v-if="allOpinions.data.length" @scroll="scroll()" />
+        ></info-message>
+
+        <infinite-scroll
+            v-if="allOpinions.data.length"
+            @scroll="scroll()"
+        ></infinite-scroll>
     </app-layout>
 </template>
 
@@ -24,17 +30,6 @@ import InfoMessage from "@/Components/InfoMessage";
 import UserProfile from "@/Components/UserProfile";
 
 export default {
-    props: {
-        user: null,
-        opinions: null,
-        likes: null,
-        profile: null,
-    },
-    data() {
-        return {
-            allOpinions: this.opinions,
-        };
-    },
     components: {
         AppLayout,
         OpinionCard,
@@ -42,6 +37,20 @@ export default {
         InfoMessage,
         UserProfile,
     },
+
+    props: {
+        user: null,
+        opinions: null,
+        likes: null,
+        profile: null,
+    },
+
+    data() {
+        return {
+            allOpinions: this.opinions,
+        };
+    },
+
     methods: {
         scroll() {
             if (this.allOpinions.next_page_url === null) {

@@ -1,13 +1,19 @@
 <template>
     <app-layout>
-        <user-search-bar />
+        <user-search-bar></user-search-bar>
+
         <user-card
             v-for="user in allUsers.data"
             :key="user.id"
             :user="user"
         ></user-card>
-        <InfoMessage v-if="showMessage" :text="resultsMessage" />
-        <InfiniteScroll v-if="allUsers.data.length" @scroll="scroll()" />
+
+        <info-message v-if="showMessage" :text="resultsMessage"></info-message>
+
+        <infinite-scroll
+            v-if="allUsers.data.length"
+            @scroll="scroll()"
+        ></infinite-scroll>
     </app-layout>
 </template>
 
@@ -19,27 +25,31 @@ import InfoMessage from "@/Components/InfoMessage";
 import UserCard from "@/Components/UserCard";
 
 export default {
-    props: {
-        users: null,
-    },
     components: {
         AppLayout,
         InfiniteScroll,
         UserSearchBar,
         InfoMessage,
-        UserCard
+        UserCard,
     },
+
+    props: {
+        users: null,
+    },
+
     data() {
         return {
             allUsers: this.users,
         };
     },
+
     computed: {
         resultsMessage() {
             return `No results for "${this.$page.url
                 .replace("/explore/", "")
                 .replace(/%20/g, " ")}"`;
         },
+
         showMessage() {
             return (
                 this.$page.url !== "/explore" &&
@@ -48,12 +58,14 @@ export default {
             );
         },
     },
+
     mounted() {
         // Don't paginate in /explore
         if (this.$page.url === "/explore" || this.$page.url === "/explore/") {
             this.users.next_page_url = null;
         }
     },
+
     methods: {
         scroll() {
             if (this.allUsers.next_page_url === null) {

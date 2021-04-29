@@ -1,18 +1,20 @@
 <template>
     <app-layout>
-        <NotificationHandler
+        <notification-handler
             v-for="notification in allNotifications.data"
             :key="notification.id"
             :notification="notification"
-        />
-        <InfoMessage
+        ></notification-handler>
+
+        <info-message
             v-if="notifications.data.length == 0"
             text="No notifications yet"
-        />
-        <InfiniteScroll
+        ></info-message>
+
+        <infinite-scroll
             v-if="allNotifications.data.length"
             @scroll="scroll()"
-        />
+        ></infinite-scroll>
     </app-layout>
 </template>
 
@@ -24,14 +26,6 @@ import InfoMessage from "@/Components/InfoMessage";
 import NotificationHandler from "@/Components/NotificationHandler";
 
 export default {
-    props: {
-        notifications: null,
-    },
-    data() {
-        return {
-            allNotifications: this.notifications,
-        };
-    },
     components: {
         AppLayout,
         OpinionCard,
@@ -39,6 +33,17 @@ export default {
         InfoMessage,
         NotificationHandler,
     },
+
+    props: {
+        notifications: null,
+    },
+
+    data() {
+        return {
+            allNotifications: this.notifications,
+        };
+    },
+
     methods: {
         scroll() {
             if (this.allNotifications.next_page_url === null) {

@@ -5,8 +5,8 @@
         <div class="flex justify-center flex-col mb-3 w-full">
             <div class="mr-5 flex flex-col items-center">
                 <img
-                    class="w-32 h-32 rounded-full mx-2 container object-cover shadow"
                     :src="user.profile_photo_url"
+                    class="w-32 h-32 rounded-full mx-2 container object-cover shadow"
                 />
             </div>
 
@@ -25,19 +25,19 @@
                 </div>
 
                 <div v-else>
-                    <inertia-link
+                    <a
                         :href="route('profile.show')"
                         class="text-sm rounded-md flex py-1 px-5 justify-center items-center bg-gray-300 dark:bg-gray-600"
                     >
                         Edit profile
-                    </inertia-link>
+                    </a>
                 </div>
             </div>
 
             <div>
                 <div
-                    class="break-all pb-2"
                     v-if="user.bio"
+                    class="break-all pb-2"
                     v-text="user.bio"
                 ></div>
 
@@ -46,9 +46,11 @@
                         :href="route('user.following', user)"
                         class="hover:text-blue-400"
                     >
-                        <span class="text-blue-400">{{
-                            user.following_count
-                        }}</span>
+                        <span
+                            class="text-blue-400"
+                            v-text="user.following_count"
+                        ></span>
+
                         <span>following ·</span>
                     </a>
                     <a
@@ -58,26 +60,27 @@
                         <span class="text-blue-400">{{
                             user.followers_count
                         }}</span>
+
                         <span>followers</span>
                     </a>
                 </div>
 
-                <user-profile-info icon="location" v-if="user.location">
-                    <span class="truncate">{{ user.location }}</span>
+                <user-profile-info v-if="user.location" icon="location">
+                    <span class="truncate" v-text="user.location"></span>
                 </user-profile-info>
 
-                <user-profile-info icon="link" v-if="user.website">
+                <user-profile-info v-if="user.website" icon="link">
                     <a
-                        class="text-blue-400 hover:underline truncate"
                         :href="user.website"
+                        class="text-blue-400 hover:underline truncate"
                         target="_blank"
+                        v-text="user.website"
                     >
-                        {{ user.website }}
                     </a>
                 </user-profile-info>
 
                 <user-profile-info icon="calendar">
-                    <span>Joined {{ user.created_at_human }}</span>
+                    <span v-text="joinedDate"></span>
                 </user-profile-info>
             </div>
         </div>
@@ -97,6 +100,12 @@ export default {
     props: {
         user: Object,
         profile: Boolean,
+    },
+
+    computed: {
+        joinedDate() {
+            return "Joined" + this.user.created_at_human;
+        },
     },
 };
 </script>

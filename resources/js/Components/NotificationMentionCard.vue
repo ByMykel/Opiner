@@ -9,13 +9,13 @@
             <div class="flex">
                 <icons icon="mention" class="pr-2 text-blue-500"></icons>
 
-                <inertia-link
+                <a
                     :href="route('user', user)"
                     class="font-bold hover:underline pr-1"
+                    v-text="user.name"
                 >
-                    {{ user.name }}
-                </inertia-link>
-                Mentioned you
+                </a>
+                <span>Mentioned you</span>
             </div>
 
             <notification-destroy-button
@@ -26,11 +26,8 @@
         <div
             class="border border-gray-500 rounded-md p-2 m-2 break-all opinion-link"
         >
-            <inertia-link
-                :href="route('opinion', opinion.id)"
-                v-html="opinion.opinion"
-            >
-            </inertia-link>
+            <a :href="route('opinion', opinion.id)" v-html="opinion.opinion">
+            </a>
         </div>
     </div>
 </template>

@@ -8,7 +8,8 @@
             <icons icon="arrow-left" class="pr-5"></icons>
 
             <div class="font-semibold">
-                Replying to
+                <span>Replying to</span>
+                
                 <span
                     class="text-blue-400"
                     v-text="opinion.parent.user.username"
