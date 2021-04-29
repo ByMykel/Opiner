@@ -8,7 +8,10 @@
 
         <icons v-else icon="heart"></icons>
 
-        <span class="pl-1">{{ opinion.likes_count }}</span>
+        <span
+            class="pl-1 flex items-center"
+            v-text="opinion.likes_count"
+        ></span>
     </div>
 </template>
 

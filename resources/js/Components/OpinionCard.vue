@@ -25,6 +25,7 @@
                 <a :href="route('opinion', opinion.parent_id)">
                     <div class="font-semibold">
                         <span>Replying to</span>
+
                         <span
                             class="text-blue-400"
                             v-text="opinion.parent.user.username"
@@ -47,15 +48,18 @@
                     </a>
 
                     <a :href="route('user', opinion.user)">
-                        <div class="font-bold hover:underline">
-                            {{ opinion.user.name }}
-                        </div>
+                        <div
+                            class="font-bold hover:underline"
+                            v-text="opinion.user.name"
+                        ></div>
 
-                        <div class="text-gray-500 dark:text-gray-400">
-                            {{ opinion.user.username }}
-                        </div>
+                        <div
+                            class="text-gray-500 dark:text-gray-400"
+                            v-text="opinion.user.username"
+                        ></div>
                     </a>
                 </div>
+
                 <div class="w-full">
                     <a
                         v-if="linkReplies"
@@ -91,9 +95,13 @@
                                 :opinion="opinion"
                             ></opinion-card-like>
 
-                            <span class="flex">
+                            <span class="flex items-center">
                                 <icons icon="chat" class="pr-1"></icons>
-                                <span v-text="opinion.replies_count"></span>
+
+                                <span
+                                    class="flex items-center"
+                                    v-text="opinion.replies_count"
+                                ></span>
                             </span>
                         </div>
 
