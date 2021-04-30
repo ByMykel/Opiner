@@ -57,7 +57,6 @@ export default {
     },
 
     props: {
-        user: null,
         opinion: null,
         replies: null,
     },

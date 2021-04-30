@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\createOpinionRequest;
 use App\Models\User;
 use App\Models\Opinion;
 use App\Notifications\LikeNotification;
@@ -15,14 +16,14 @@ class OpinionController extends Controller
 {
     public function index(Request $request)
     {
-        $timeline = Opinion::whereIn('user_id', Auth::user()->following()->get()->push(Auth::user())->pluck('id'))
-            ->with('user')
-            ->withCount('likes')
-            ->with('parent.user')
+        $usersIds = Auth::user()->following()->get()->push(Auth::user())->pluck('id');
+
+        $timeline = Opinion::whereIn('user_id', $usersIds)
+            ->with(['user', 'parent.user'])
+            ->withCount(['likes', 'replies'])
             ->withcount(['likes as like' => function ($q) {
                 return $q->where('user_id', Auth::id());
             }])
-            ->withCount('replies')
             ->latest()
             ->paginate();
 
@@ -35,13 +36,8 @@ class OpinionController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(createOpinionRequest $request)
     {
-        $request->validate([
-            'parent_id' => ['nullable', 'numeric'],
-            'opinion' => ['required', 'string'],
-        ]);
-
         $opinion = Auth::user()->opinions()->create([
             'parent_id' => $request->parent_id,
             'opinion' => $request->opinion,
@@ -51,7 +47,7 @@ class OpinionController extends Controller
 
         $mentions = array_unique($mentions[1]);
 
-        foreach($mentions as $user) {
+        foreach ($mentions as $user) {
             if ($user != Auth::user()->id) {
                 User::find($user)->notify(new MentionNotification($opinion, Auth::user()));
             }
@@ -77,13 +73,20 @@ class OpinionController extends Controller
 
     public function show(Opinion $opinion, Request $request)
     {
-        $replies = $opinion->replies()
-            ->withCount('likes')
+        $opinionData = Opinion::where('id', '=', $opinion->id)
+            ->with(['user', 'parent.user'])
+            ->withCount(['likes', 'replies'])
             ->withcount(['likes as like' => function ($q) {
                 return $q->where('user_id', Auth::id());
             }])
-            ->withCount('replies')
+            ->first();
+
+        $replies = $opinion->replies()
             ->with('user')
+            ->withCount(['likes', 'replies'])
+            ->withcount(['likes as like' => function ($q) {
+                return $q->where('user_id', Auth::id());
+            }])
             ->paginate();
 
         if ($request->wantsJson()) {
@@ -91,16 +94,7 @@ class OpinionController extends Controller
         }
 
         return Inertia::render('Opinion', [
-            'user' => User::find($opinion->user_id),
-            'opinion' => Opinion::where('id', '=', $opinion->id)
-                ->withCount('likes')
-                ->withcount(['likes as like' => function ($q) {
-                    return $q->where('user_id', Auth::id());
-                }])
-                ->withCount('replies')
-                ->with('parent.user')
-                ->with('user')
-                ->first(),
+            'opinion' => $opinionData,
             'replies' => $replies
         ]);
     }
@@ -118,15 +112,10 @@ class OpinionController extends Controller
 
         preg_match('/\/opinion\/(\d+)/', $request->server('HTTP_REFERER'), $id);
 
-        if (count($id) === 0 || $this->checkOpinion($id[1])) {
+        if (count($id) === 0 || Opinion::checkOpinion($id[1])) {
             return redirect()->back();
         } else {
             return redirect()->route('home');
         }
-    }
-
-    public function checkOpinion($id)
-    {
-        return Opinion::where('id', $id)->count() > 0;
     }
 }

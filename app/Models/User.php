@@ -53,6 +53,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => 'datetime:H:i · M d, Y'
     ];
 
     /**
@@ -67,12 +68,12 @@ class User extends Authenticatable
 
     public function opinions()
     {
-        return $this->hasMany(Opinion::class);
+        return $this->hasMany(Opinion::class)->latest();
     }
 
     public function likes()
     {
-        return $this->belongsToMany(Opinion::class, Like::class)->withTimestamps();
+        return $this->belongsToMany(Opinion::class, 'likes')->withTimestamps();
     }
 
     public function followers()

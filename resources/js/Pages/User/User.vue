@@ -1,6 +1,6 @@
 <template>
     <app-layout>
-        <user-profile :user="user[0]" :profile="profile"></user-profile>
+        <user-profile :user="user[0]" :profile="authUserProfile"></user-profile>
 
         <opinion-card
             v-for="opinion in allOpinions.data"
@@ -42,13 +42,18 @@ export default {
         user: null,
         opinions: null,
         likes: null,
-        profile: null,
     },
 
     data() {
         return {
             allOpinions: this.opinions,
         };
+    },
+
+    computed: {
+        authUserProfile() {
+            return this.user[0].id === this.$page.props.auth.id;
+        },
     },
 
     methods: {

@@ -37,7 +37,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function mention(Request $request) {
+    public function mention(Request $request)
+    {
         $users = [];
 
         if ($request->search) {
@@ -67,15 +68,19 @@ class UserController extends Controller
 
     public function show(User $user, Request $request)
     {
+        $userData = User::where('id', $user->id)
+            ->withcount(['following', 'followers', 'opinions'])
+            ->withcount(['followers as follow' => function ($q) {
+                return $q->where('follower_id', Auth::id());
+            }])
+            ->get();
+
         $opinions = $user->opinions()
-            ->with('user')
-            ->with('parent.user')
-            ->withCount('likes')
+            ->with(['user', 'parent.user'])
+            ->withCount(['likes', 'replies'])
             ->withcount(['likes as like' => function ($q) {
                 return $q->where('user_id', Auth::id());
             }])
-            ->withCount('replies')
-            ->latest()
             ->paginate();
 
         if ($request->wantsJson()) {
@@ -83,16 +88,8 @@ class UserController extends Controller
         }
 
         return Inertia::render('User/User', [
-            'user' => User::where('id', $user->id)
-                ->withcount('following')
-                ->withcount(['followers as follow' => function ($q) {
-                    return $q->where('follower_id', Auth::id());
-                }])
-                ->withcount('followers')
-                ->withcount('opinions')
-                ->get(),
+            'user' => $userData,
             'opinions' => $opinions,
-            'profile' => $user->id === Auth::user()->id
         ]);
     }
 

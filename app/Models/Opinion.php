@@ -28,7 +28,7 @@ class Opinion extends Model
 
     public function likes()
     {
-        return $this->hasMany(Like::class, 'opinion_id')->latest();
+        return $this->belongsToMany(User::class, 'likes')->latest();
     }
 
     public function replies()
@@ -43,5 +43,10 @@ class Opinion extends Model
         } else {
             return "";
         }
+    }
+
+    public static function checkOpinion($id)
+    {
+        return Opinion::where('id', $id)->count() > 0;
     }
 }
