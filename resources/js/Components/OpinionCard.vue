@@ -33,7 +33,7 @@
                         >
                         </span>
 
-                        <span>retweeted</span>
+                        <span>reopined</span>
                     </div>
                 </a>
             </div>
