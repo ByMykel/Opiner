@@ -21,12 +21,18 @@
                 </div>
             </div>
 
-            <div v-if="opinion.reopinion_user_id !== undefined" class="pb-2 m-1 flex">
+            <div
+                v-if="opinion.reopinion_user_id !== undefined"
+                class="pb-2 m-1 flex"
+            >
                 <a :href="route('user', opinion.user)">
                     <div class="font-semibold">
-                        <span class="text-blue-400" v-text="opinion.reuser.name">
+                        <span
+                            class="text-blue-400"
+                            v-text="opinion.reuser.name"
+                        >
                         </span>
-                        
+
                         <span>retweeted</span>
                     </div>
                 </a>
@@ -169,7 +175,8 @@ export default {
         showRepliedUser() {
             return (
                 this.opinion.parent_id &&
-                !route().current("opinion", this.opinion.parent_id)
+                !route().current("opinion", this.opinion.parent_id) &&
+                !route().current("opinion", this.opinion.id)
             );
         },
     },

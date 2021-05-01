@@ -3,7 +3,7 @@
         <a
             v-if="opinion.parent_id"
             :href="route('opinion', opinion.parent_id)"
-            class="flex py-4 p-4 dark:text-white"
+            class="flex py-4 p-4 dark:text-white items-center"
         >
             <icons icon="arrow-left" class="pr-5"></icons>
 
