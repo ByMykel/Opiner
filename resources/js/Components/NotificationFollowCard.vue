@@ -7,7 +7,7 @@
     >
         <div class="flex justify-between">
             <div class="flex">
-                <icons icon="user" class="pr-2 text-purple-500"></icons>
+                <icons icon="user-solid" class="pr-2 text-purple-500"></icons>
 
                 <a
                     :href="route('user', user)"
