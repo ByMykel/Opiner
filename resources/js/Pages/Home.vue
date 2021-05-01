@@ -6,8 +6,8 @@
         ></opinion-create>
 
         <opinion-card
-            v-for="opinion in opinions.data"
-            :key="opinion.id"
+            v-for="(opinion, index) in opinions.data"
+            :key="index"
             :opinion="opinion"
             :linkReplies="true"
             :showOpinionReplayed="true"

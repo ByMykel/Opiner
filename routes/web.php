@@ -32,6 +32,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::post('/', [OpinionController::class, 'store'])->name('opinion.store');
         Route::get('/{opinion}', [OpinionController::class, 'show'])->name('opinion');
         Route::post('/{opinion}/like', [OpinionController::class, 'like'])->name('opinion.like');
+        Route::post('/{opinion}/reopinion', [OpinionController::class, 'reopinion'])->name('opinion.reopinion');
         Route::delete('/{opinion}/delete', [OpinionController::class, 'destroy'])->name('opinion.delete');
     });
 });

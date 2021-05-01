@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Opinion;
+use App\Models\Reopinion;
 use App\Models\User;
 use App\Notifications\FollowNotification;
 use Illuminate\Http\Request;
@@ -75,21 +77,40 @@ class UserController extends Controller
             }])
             ->get();
 
-        $opinions = $user->opinions()
+        $opinions = Opinion::whereHas('user', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })
             ->with(['user', 'parent.user'])
-            ->withCount(['likes', 'replies'])
+            ->withCount(['likes', 'replies', 'reopinions'])
             ->withcount(['likes as like' => function ($q) {
                 return $q->where('user_id', Auth::id());
             }])
-            ->paginate();
+            ->withcount(['reopinions as reopinion' => function ($q) {
+                return $q->where('reopinion_user_id', Auth::user()->id);
+            }])
+            ->get();
+
+        $reopinions = Reopinion::where('reopinion_user_id', $user->id)
+
+            ->with(['user', 'parent.user', 'reuser'])
+            ->withCount(['likes', 'replies', 'reopinions'])
+            ->withcount(['likes as like' => function ($q) {
+                return $q->where('user_id', Auth::id());
+            }])
+            ->withcount(['reopinions as reopinion' => function ($q) {
+                return $q->where('reopinion_user_id', Auth::user()->id);
+            }])
+            ->get();
+
+        $timeline = $this->paginateCollection($opinions->mergeRecursive($reopinions)->sortByDesc('reopinion_created_at'));
 
         if ($request->wantsJson()) {
-            return $opinions;
+            return $timeline;
         }
 
         return Inertia::render('User/User', [
             'user' => $userData,
-            'opinions' => $opinions,
+            'opinions' => $timeline,
         ]);
     }
 
@@ -127,5 +148,12 @@ class UserController extends Controller
             'user' => $user,
             'followers' => $followers
         ]);
+    }
+
+    public function paginateCollection($items, $perPage = 15, $page = null, $options = [])
+    {
+        $page = $page ?: (\Illuminate\Pagination\Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof \Illuminate\Support\Collection ? $items : \Illuminate\Support\Collection::make($items);
+        return new \Illuminate\Pagination\LengthAwarePaginator(array_values($items->forPage($page, $perPage)->toArray()), $items->count(), $perPage, $page, $options);
     }
 }

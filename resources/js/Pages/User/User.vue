@@ -3,8 +3,8 @@
         <user-profile :user="user[0]" :profile="authUserProfile"></user-profile>
 
         <opinion-card
-            v-for="opinion in allOpinions.data"
-            :key="opinion.id"
+            v-for="(opinion, index) in allOpinions.data"
+            :key="index"
             :opinion="opinion"
             :linkReplies="true"
             :showOpinionReplayed="true"
@@ -62,7 +62,7 @@ export default {
                 return;
             }
 
-            axios.get(this.allOpinions.next_page_url).then((response) => {
+            axios.get(route('user', this.user[0].username) + this.allOpinions.next_page_url).then((response) => {
                 this.allOpinions = {
                     ...response.data,
                     data: [...this.allOpinions.data, ...response.data.data],

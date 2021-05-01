@@ -104,7 +104,7 @@ export default {
 
     computed: {
         joinedDate() {
-            return "Joined" + this.user.created_at_human;
+            return "Joined " + this.user.created_at_human;
         },
     },
 };

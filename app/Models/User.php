@@ -71,6 +71,11 @@ class User extends Authenticatable
         return $this->hasMany(Opinion::class)->latest();
     }
 
+    public function reopinions()
+    {
+        return $this->hasMany(Reopinion::class);
+    }
+
     public function likes()
     {
         return $this->belongsToMany(Opinion::class, 'likes')->withTimestamps();

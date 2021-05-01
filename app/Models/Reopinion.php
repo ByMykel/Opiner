@@ -5,19 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Opinion extends Model
+class Reopinion extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    protected $appends = ['created_at_human', 'reopinion_created_at'];
+    protected $appends = ['created_at_human'];
 
     protected $casts = ['created_at' => 'datetime:H:i · M d, Y'];
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function reuser()
+    {
+        return $this->belongsTo(User::class, 'reopinion_user_id');
     }
 
     public function parent()
@@ -27,7 +32,7 @@ class Opinion extends Model
 
     public function likes()
     {
-        return $this->belongsToMany(User::class, 'likes')->latest();
+        return $this->belongsToMany(User::class, 'likes', 'opinion_id')->latest();
     }
 
     public function replies()
@@ -44,22 +49,8 @@ class Opinion extends Model
     {
         if ($this->created_at) {
             return $this->created_at->diffForHumans();
+        } else {
+            return "";
         }
-
-        return "";
-    }
-
-    public function getReopinionCreatedAtAttribute()
-    {
-        if ($this->created_at) {
-            return $this->created_at;
-        }
-
-        return "";
-    }
-
-    public static function checkOpinion($id)
-    {
-        return Opinion::where('id', $id)->count() > 0;
     }
 }

@@ -21,7 +21,18 @@
                 </div>
             </div>
 
-            <div v-if="showRepliedUser" class="pb-2 m-1 flex">
+            <div v-if="opinion.reopinion_user_id !== undefined" class="pb-2 m-1 flex">
+                <a :href="route('user', opinion.user)">
+                    <div class="font-semibold">
+                        <span class="text-blue-400" v-text="opinion.reuser.name">
+                        </span>
+                        
+                        <span>retweeted</span>
+                    </div>
+                </a>
+            </div>
+
+            <div v-else-if="showRepliedUser" class="pb-2 m-1 flex">
                 <a :href="route('opinion', opinion.parent_id)">
                     <div class="font-semibold">
                         <span>Replying to</span>
@@ -91,6 +102,10 @@
                         class="text-gray-500 mx-1 flex justify-between items-center dark:text-gray-400 mt-4"
                     >
                         <div class="flex space-x-4">
+                            <opinion-card-reopinion
+                                :opinion="opinion"
+                            ></opinion-card-reopinion>
+
                             <opinion-card-like
                                 :opinion="opinion"
                             ></opinion-card-like>
@@ -125,12 +140,14 @@
 import Icons from "@/Components/Icons";
 import OpinionCardLike from "@/Components/OpinionCardLike";
 import OpinionCardDestroy from "@/Components/OpinionCardDestroy";
+import OpinionCardReopinion from "@/Components/OpinionCardReopinion";
 
 export default {
     components: {
         Icons,
         OpinionCardLike,
         OpinionCardDestroy,
+        OpinionCardReopinion,
     },
 
     props: {

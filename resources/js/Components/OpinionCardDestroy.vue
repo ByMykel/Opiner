@@ -12,7 +12,7 @@ export default {
     props: {
         opinion: Object,
     },
-    
+
     methods: {
         destroy() {
             this.$inertia.delete(route("opinion.delete", this.opinion.id), {
