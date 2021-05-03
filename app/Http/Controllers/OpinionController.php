@@ -8,6 +8,7 @@ use App\Models\Opinion;
 use App\Models\Reopinion;
 use App\Notifications\LikeNotification;
 use App\Notifications\MentionNotification;
+use App\Notifications\ReopinionNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -114,6 +115,10 @@ class OpinionController extends Controller
                 'updated_at' => $opinion->updated_at,
                 'reopinion_created_at' => NOW(),
             ]);
+
+            if (Auth::user()->id !== $opinion->user_id) {
+                $opinion->user->notify(new ReopinionNotification($opinion, Auth::user()));
+            }
         }
 
         return redirect()->back();

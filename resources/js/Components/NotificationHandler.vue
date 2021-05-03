@@ -37,6 +37,19 @@
                 :read="notification.read_at"
             ></notification-mention-card>
         </div>
+
+        <div
+            v-else-if="
+                notification.type === 'App\\Notifications\\ReopinionNotification'
+            "
+        >
+            <notification-reopinion-card
+                :notification="notification"
+                :user="notification.data.user"
+                :opinion="notification.data.opinion"
+                :read="notification.read_at"
+            ></notification-reopinion-card>
+        </div>
     </div>
 </template>
 
@@ -44,12 +57,14 @@
 import NotificationFollowCard from "@/Components/NotificationFollowCard";
 import NotificationLikeCard from "@/Components/NotificationLikeCard";
 import NotificationMentionCard from "@/Components/NotificationMentionCard";
+import NotificationReopinionCard from "@/Components/NotificationReopinionCard";
 
 export default {
     components: {
         NotificationFollowCard,
         NotificationLikeCard,
         NotificationMentionCard,
+        NotificationReopinionCard
     },
 
     props: {
