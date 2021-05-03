@@ -57,7 +57,7 @@ export default {
                 return;
             }
 
-            axios.get(this.opinions.next_page_url).then((response) => {
+            axios.get((route('home') + this.opinions.next_page_url)).then((response) => {
                 this.opinions = {
                     ...response.data,
                     data: [...this.opinions.data, ...response.data.data],

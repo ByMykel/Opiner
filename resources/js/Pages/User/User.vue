@@ -62,7 +62,7 @@ export default {
                 return;
             }
 
-            axios.get(route('user', this.user[0].username) + this.allOpinions.next_page_url).then((response) => {
+            axios.get((route('user', this.user[0].username) + this.allOpinions.next_page_url)).then((response) => {
                 this.allOpinions = {
                     ...response.data,
                     data: [...this.allOpinions.data, ...response.data.data],

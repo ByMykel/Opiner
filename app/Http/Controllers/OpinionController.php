@@ -52,7 +52,7 @@ class OpinionController extends Controller
             }])
             ->get();
 
-        $timeline = $this->paginateCollection($opinions->mergeRecursive($reopinions)->sortByDesc('reopinion_created_at'));
+        $timeline = $this->paginateCollection($opinions->mergeRecursive($reopinions)->sortByDesc('reopinion_created_at'), 15, $request->page);
 
         if ($request->wantsJson()) {
             return $timeline;
