@@ -1,6 +1,6 @@
 # Opiner
 
-A simple Twitter clone built with Laravel 8.
+A simple Twitter clone built with VueJS, Laravel 8 and TailwindCSS.
 
 ### Images
 #### Home
