@@ -1,5 +1,5 @@
 <template>
-    <div class="shadow overflow-hidden sm:rounded-md bg-white mb-10 dark:text-white dark:bg-gray-800">
+    <div class="shadow overflow-hidden sm:rounded-md bg-white mb-10 dark:text-white dark:bg-gray-900">
         <div class="px-4 py-5 sm:p-6">
             <div class="flex items-center justify-between col-span-6">
                 <div class="flex items-center">

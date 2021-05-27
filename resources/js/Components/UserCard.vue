@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex flex-row w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md shadow sm:rounded-md bg-white dark:text-white dark:bg-gray-800"
+        class="flex flex-row w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md shadow sm:rounded-md bg-white dark:text-white dark:bg-gray-900"
     >
         <img
             :src="user.profile_photo_url"

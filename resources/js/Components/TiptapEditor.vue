@@ -8,7 +8,7 @@
         <div
             v-show="showSuggestions"
             ref="suggestions"
-            class="p-0.5 bg-white dark:bg-gray-800 rounded w-auto"
+            class="p-0.5 bg-white dark:bg-gray-900 rounded w-auto"
         >
             <template v-if="hasResults">
                 <div

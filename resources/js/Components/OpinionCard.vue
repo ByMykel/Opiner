@@ -1,7 +1,7 @@
 <template>
     <div>
         <div
-            class="w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md sm:rounded-md bg-white dark:bg-gray-800 dark:text-white shadow relative"
+            class="w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md sm:rounded-md bg-white dark:bg-gray-900 dark:text-white shadow relative"
         >
             <div
                 v-show="deleteConfirmation"

@@ -1,7 +1,7 @@
 <template>
     <div
         ref="opinion-content"
-        class="w-full sm:rounded-md mt-2 bg-white dark:bg-gray-800 dark:text-white shadow"
+        class="w-full sm:rounded-md mt-2 bg-white dark:bg-gray-900 dark:text-white shadow"
     >
         <form @submit.prevent="submit">
             <tiptap-editor

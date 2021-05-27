@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex flex-col justify-center items-center mx-auto p-3 pt-5 mt-2 mb-6 shadow w-full sm:rounded-md bg-white dark:text-white dark:bg-gray-800"
+        class="flex flex-col justify-center items-center mx-auto p-3 pt-5 mt-2 mb-6 shadow w-full sm:rounded-md bg-white dark:text-white dark:bg-gray-900"
     >
         <div class="flex justify-center flex-col mb-3 w-full">
             <div class="mr-5 flex flex-col items-center">
