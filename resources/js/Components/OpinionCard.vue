@@ -25,7 +25,7 @@
                 v-if="opinion.reopinion_user_id !== undefined"
                 class="pb-2 m-1 flex"
             >
-                <a :href="route('user', opinion.user)">
+                <a :href="route('user', opinion.reuser)">
                     <div class="font-semibold">
                         <span
                             class="text-blue-400"

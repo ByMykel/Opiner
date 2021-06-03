@@ -27,7 +27,7 @@
                 <div v-else>
                     <a
                         :href="route('profile.show')"
-                        class="text-sm rounded-md flex py-1 px-5 justify-center items-center bg-gray-300 dark:bg-gray-600"
+                        class="text-sm rounded-md flex py-1 px-5 justify-center items-center bg-gray-300 dark:bg-gray-600 focus:outline-none focus:ring focus:border-blue-400"
                     >
                         Edit profile
                     </a>

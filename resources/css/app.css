@@ -1,6 +1,6 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 @layer base {
     body {
@@ -20,5 +20,9 @@
 
     .opinion-link a[rel="noopener noreferrer nofollow"] {
         @apply hover:underline text-blue-400;
+    }
+
+    .ProseMirror:focus {
+        outline: none;
     }
 }

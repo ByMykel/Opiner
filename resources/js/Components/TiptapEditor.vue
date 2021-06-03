@@ -15,10 +15,10 @@
                     v-for="(user, index) in filteredUsers"
                     :key="user.id"
                     :class="{
-                        'bg-blue-100 dark:bg-gray-600':
+                        'bg-blue-200 dark:bg-blue-300 text-black':
                             navigatedUserIndex === index,
                     }"
-                    class="rounded p-1 cursor-pointer hover:bg-blue-100 m-1 dark:hover:bg-gray-600"
+                    class="rounded p-1 cursor-pointer hover:bg-blue-100 m-1 dark:hover:bg-blue-200 dark:hover:text-black"
                     @click="selectUser(user)"
                     v-text="user.name"
                 ></div>

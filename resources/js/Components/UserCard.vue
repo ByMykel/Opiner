@@ -2,10 +2,12 @@
     <div
         class="flex flex-row w-full mx-auto m-2 p-2 text-xs sm:text-sm md:text-md shadow sm:rounded-md bg-white dark:text-white dark:bg-gray-900"
     >
-        <img
-            :src="user.profile_photo_url"
-            class="h-10 w-10 mr-4 rounded-full"
-        />
+        <a :href="route('user', user)" class="h-10 w-10 m-1 mr-3 flex-shrink-0">
+            <img
+                :src="user.profile_photo_url"
+                class="w-10 h-10 rounded-full container hover:opacity-80 flex-shrink-0 object-cover"
+            />
+        </a>
 
         <div class="w-full">
             <div class="flex justify-between">

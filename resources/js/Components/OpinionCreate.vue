@@ -13,7 +13,7 @@
             <div class="flex justify-between items-center">
                 <button
                     :disabled="disabledSubmit"
-                    class="bg-blue-400 w-24 h-8 rounded-full m-2 disabled:opacity-50"
+                    class="bg-blue-400 w-24 h-8 rounded-full m-2 disabled:opacity-50 focus:outline-none"
                 >
                     Create
                 </button>
