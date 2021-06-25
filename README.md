@@ -2,6 +2,8 @@
 
 A simple Twitter clone built with VueJS, Laravel 8 and TailwindCSS.
 
+https://user-images.githubusercontent.com/38622893/123448137-e1094500-d5da-11eb-94c1-94afa08ae25e.mp4
+
 ### Images
 #### Home
 ![Home](https://i.imgur.com/O2UzXPD.png)
